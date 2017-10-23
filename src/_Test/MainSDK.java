@@ -1183,6 +1183,19 @@ public class MainSDK {
 				springLayout.putConstraint(SpringLayout.NORTH, btnNewButton_8, 38, SpringLayout.SOUTH, btnNewButton);
 				springLayout.putConstraint(SpringLayout.WEST, btnNewButton_8, 80, SpringLayout.EAST, textField_4);
 				frame.getContentPane().add(btnNewButton_8);
+				
+				JButton btnNewButton_9 = new JButton("New button");
+				frame.getContentPane().add(btnNewButton_9);
+				
+				JButton anti_init = new JButton("反初始化");
+				anti_init.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						UploadUtil.unInit();
+					}
+				});
+				springLayout.putConstraint(SpringLayout.NORTH, anti_init, 0, SpringLayout.NORTH, label_12);
+				springLayout.putConstraint(SpringLayout.WEST, anti_init, 0, SpringLayout.WEST, textField);
+				frame.getContentPane().add(anti_init);
 	}
 
 	int count = 0;
