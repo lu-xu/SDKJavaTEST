@@ -1,4 +1,4 @@
-package _Test;
+ package _Test;
 
 import java.math.BigDecimal;
 
@@ -18,7 +18,7 @@ public class InterFaceParking extends InterfacePark {
 	@Override
 	public void receive(String msg) {
 		// TODO Auto-generated method stub
-		System.out.println(System.currentTimeMillis() + ">>>>>»Øµ÷½ÓÊÕ: " + msg);
+		System.out.println(System.currentTimeMillis() + ">>>>>å›è°ƒæ¥æ”¶: " + msg);
 		JSONObject object = JSONObject.fromObject(msg);
 		String service_name = object.getString("service_name");
 		// MainSDK.textField_4.setText(System.currentTimeMillis()+"");
@@ -32,7 +32,7 @@ public class InterFaceParking extends InterfacePark {
 		CarInEntity entity;
 		switch (service_name) {
 		case "outpark":
-			// {"service_name":"outpark","pay_type":"sweepcode","state":1,"errmsg":"Ö§¸¶³É¹¦","trade_no":"kftweixinprepay20010320170725111512897",
+			// {"service_name":"outpark","pay_type":"sweepcode","state":1,"errmsg":"æ”¯ä»˜æˆåŠŸ","trade_no":"kftweixinprepay20010320170725111512897",
 			// "order_id":"A1_2C1500952427"}
 			orderid = object.getString("order_id");
 			trade_no = object.getString("trade_no");
@@ -67,22 +67,22 @@ public class InterFaceParking extends InterfacePark {
 				outentity.setData_target("cloud");
 				try {
 					String outmsg = JSONObject.fromObject(outentity).toString();
-					System.out.println(">>>>>outpark¸øÔÆ¶Ë·µ»Ø :" + outmsg);
+					System.out.println(">>>>>outparkç»™äº‘ç«¯è¿”å› :" + outmsg);
 					String outstate = UploadUtil.uploadData(outmsg);
-					System.out.println(">>>>>outpark¸øÔÆ¶Ë·µ»Ø :" + state);
+					System.out.println(">>>>>outparkç»™äº‘ç«¯è¿”å› :" + state);
 					if (MainSDK.getState(outstate) == 1) {
 						SqliteJDBC.Delete(outentity.getOrder_id());
-//						MainSDK.ShowDialog(outentity.getCar_number() + "ÏÖ½ğ³ö³¡³É¹¦");
+//						MainSDK.ShowDialog(outentity.getCar_number() + "ç°é‡‘å‡ºåœºæˆåŠŸ");
 						MainSDK.clearOrder();
 					}
 				} catch (Exception e) {
 					// lblNewLabel.setText(e.getMessage());
 				}
 				
-				String bolinkstr = "{\"service_name\":\"outpark\",\"data_target\":\"bolink\",\"state\":1,\"errmsg\":\"Ö§¸¶³É¹¦\",\"trade_no\":\""+trade_no+"\",\"order_id\":\""+orderid+"\"}";
-				System.out.println(">>>>>outpark¸øbolink·µ»Ø :" + bolinkstr);
+				String bolinkstr = "{\"service_name\":\"outpark\",\"data_target\":\"bolink\",\"state\":1,\"errmsg\":\"æ”¯ä»˜æˆåŠŸ\",\"trade_no\":\""+trade_no+"\",\"order_id\":\""+orderid+"\"}";
+				System.out.println(">>>>>outparkç»™bolinkè¿”å› :" + bolinkstr);
 				String s = UploadUtil.uploadData(bolinkstr);
-				System.out.println(">>>>>outpark¸øbolink·µ»Ø :" + s);
+				System.out.println(">>>>>outparkç»™bolinkè¿”å› :" + s);
 				
 			} else {
 
@@ -119,12 +119,12 @@ public class InterFaceParking extends InterfacePark {
 
 			} else {
 				state = 0;
-				errmsg = "Î´²éÑ¯µ½´Ë¶©µ¥";
+				errmsg = "æœªæŸ¥è¯¢åˆ°æ­¤è®¢å•";
 			}
 			back = "{\"service_name\":\"prepay_order\",\"data_target\":\"bolink\",\"errmsg\":\"" + errmsg
 					+ "\",\"state\":" + state + ",\"park_id\":\"" + parkid + "\",\"order_id\":\"" + orderid
 					+ "\",\"prepay\":\"" + prepay + "\",\"query_time\":" + System.currentTimeMillis() / 100 + "}";
-			System.out.println(">>>>>»Øµ÷·µ»Ø :" + back);
+			System.out.println(">>>>>å›è°ƒè¿”å› :" + back);
 			String s = UploadUtil.uploadData(back);
 			System.out.println(s);
 
@@ -150,7 +150,7 @@ public class InterFaceParking extends InterfacePark {
 					price = new BigDecimal(FileUtil.calPrice(duration)).setScale(2, BigDecimal.ROUND_HALF_UP)
 							.doubleValue();
 					Total = price;
-					// ÏÈ¼õµôÔ¤¸¶
+					// å…ˆå‡æ‰é¢„ä»˜
 					String prepaystr = SqliteJDBC.Querry("order_id", order_id,"prepay");
 //					String prepaystr = MainSDK.edit_prepay.getText().equals("")?"0":MainSDK.edit_prepay.getText();
 					if (prepaystr != null && !order_id.equals("")) {
@@ -158,12 +158,12 @@ public class InterFaceParking extends InterfacePark {
 						Total = price - prepays;
 					}
 
-					// ÔÙ¼õµôÓÅ»İÈ¯
+					// å†å‡æ‰ä¼˜æƒ åˆ¸
 					String coupon_type = MainSDK.carInList.get(i).getCoupon_type();
 					String coupon = MainSDK.carInList.get(i).getCoupon();
 					if (coupon_type != null && !coupon_type.equals("")) {
 						if (coupon_type.equals("0")) {
-							// 0½ğ¶î£¬1Ê±³¤
+							// 0é‡‘é¢ï¼Œ1æ—¶é•¿
 							derate_duration = 0;
 						} else {
 							derate_duration = Double.parseDouble(coupon) * 100 / 60;
@@ -192,19 +192,19 @@ public class InterFaceParking extends InterfacePark {
 					price = Double.parseDouble(MainSDK.EditTotal);
 
 					Total = price;
-					// ÏÈ¼õµôÔ¤¸¶
+					// å…ˆå‡æ‰é¢„ä»˜
 					String prepaystr = MainSDK.edit_prepay.getText().equals("")?"0":MainSDK.edit_prepay.getText();
 					if (prepaystr != null && !order_id.equals("")) {
 						double prepays = Double.parseDouble(prepaystr);
 						Total = price - prepays;
 					}
 
-					// ÔÙ¼õµôÓÅ»İÈ¯
+					// å†å‡æ‰ä¼˜æƒ åˆ¸
 					String coupon_type = MainSDK.carInList.get(i).getCoupon_type();
 					String coupon = MainSDK.carInList.get(i).getCoupon();
 					if (coupon_type != null && !coupon_type.equals("")) {
 						if (coupon_type.equals("0")) {
-							// 0½ğ¶î£¬1Ê±³¤
+							// 0é‡‘é¢ï¼Œ1æ—¶é•¿
 							derate_duration = 0;
 						} else {
 							derate_duration = Double.parseDouble(coupon) * 100 / 60;
@@ -229,34 +229,48 @@ public class InterFaceParking extends InterfacePark {
 				state = 1;
 			} else {
 				state = 0;
-				errmsg = "Î´²éÑ¯µ½´Ë¶©µ¥";
+				errmsg = "æœªæŸ¥è¯¢åˆ°æ­¤è®¢å•lalala";
 			}
 			// = (prices-Double.parseDouble(derate_money))>0
 			String query_order_no = "";
 			if(object.toString().contains("query_order_no")){
 				query_order_no = object.getString("query_order_no");
 			}
+			
+			try {
+				Thread.sleep(2200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			back = "{\"service_name\":\"query_price\",\"data_target\":\"bolink\",\"errmsg\":\"" + errmsg
 					+ "\",\"state\":" + state + ",\"park_id\":\"" + parkid + "\",\"order_id\":\"" + order_id
 					+ "\",\"price\":\"" + Total + "\",\"duration\":" + ((duration / 60) >= 1 ? (duration / 60) : 1)
 					+ ",\"free_out_time\":" + 100 + ",\"query_time\":" + System.currentTimeMillis() / 1000
 					+ ",\"derate_money\":\"" + derate_money + "\",\"derate_duration\":\"" + derate_duration
-					+ "\",\"total\":\"" + price + "\",\"query_order_no\":\""+query_order_no+"\"}";
-			System.out.println(">>>>>»Øµ÷·µ»Ø :" + back);
-			UploadUtil.uploadData(back);
+					+ "\","
+					+ "\"total\":\"" + price + "\","
+					+ "\"query_order_no\":\""+query_order_no+"\"}";
+//			
+//			back = "{\"service_name\":\"query_price\",\"data_target\":\"bolink\",\"errmsg\":\"æ²¡æœ‰æ­¤è½¦å…¥åœºä¿¡æ¯å•¦\",\"state\":0,\"park_id\":\"" + parkid + "\",\"order_id\":\""+order_id+"\",\"price\":\"0.00\",\"duration\":54,\"free_out_time\":" + 100 + ",\"query_time\":" + System.currentTimeMillis() / 1000
+//					+ ",\"derate_money\":\"5.0\",\"derate_duration\":0,\"total\":\"0.00\",\"query_order_no\":\"\"}";
+			System.out.println(">>>>>å›è°ƒè¿”å› :" + back);
+			String isSend = UploadUtil.uploadData(back);
+			System.out.println(">>>>>æŸ¥è¯¢ä»·æ ¼å›è°ƒè¿”å›çŠ¶æ€ :" + isSend);
 			break;
 		case "lock_car":
-
+			order_id = object.getString("order_id");
 			int islock = object.getInt("is_locked");
 			if (islock == 0) {
-				// ½âËø
-				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"½âËø³É¹¦\",\"data_target\":\"cloud\",\"order_id\":\"12345\",\"is_locked\":0}";
+				// è§£é”
+				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"è§£é”æˆåŠŸ\",\"data_target\":\"cloud\",\"order_id\":\"" + order_id + "\",\"is_locked\":0}";
 			} else {
-				// Ëø³µ
-				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"Ëø³µ³É¹¦\",\"data_target\":\"cloud\",\"order_id\":\"12345\",\"is_locked\":1}";
+				// é”è½¦
+				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"é”è½¦æˆåŠŸ\",\"data_target\":\"cloud\",\"order_id\":\"" + order_id + "\",\"is_locked\":1}";
 			}
 
-			System.out.println(">>>>>»Øµ÷·µ»Ø :" + back);
+			System.out.println(">>>>>å›è°ƒè¿”å› :" + back);
 			s = UploadUtil.uploadData(back);
 			System.out.println(s);
 
@@ -278,13 +292,13 @@ public class InterFaceParking extends InterfacePark {
 				}
 			}
 			if (querry) {
-				derate_money = 0;// »Ø´«¸øsdkµÄÓÅ»İÈ¯½ğ¶î
+				derate_money = 0;// å›ä¼ ç»™sdkçš„ä¼˜æƒ åˆ¸é‡‘é¢
 				// CarInEntity entity = MainSDK.carInList.get(index);
 				if (ticket_type == 0 || ticket_type == 2) {
-					// ¼õÃâÍ£³µ½ğ¶î
+					// å‡å…åœè½¦é‡‘é¢
 					derate_money = object.getDouble("money");
 				} else {
-					// ¼õÃâÍ£³µÊ±³¤ Ğ¡Ê±Îªµ¥Î»£¬¼ÆËã¼Û¸ñ´«Èë3600Ãë
+					// å‡å…åœè½¦æ—¶é•¿ å°æ—¶ä¸ºå•ä½ï¼Œè®¡ç®—ä»·æ ¼ä¼ å…¥3600ç§’
 					derate_money = Double.parseDouble(object.getString("duration")) * FileUtil.calPrice(3600);
 //					MainSDK.ticket_id.setText(object.getString("duration"));
 				}
@@ -296,13 +310,13 @@ public class InterFaceParking extends InterfacePark {
 				MainSDK.carInList.get(index).setCoupon_type(ticket_type + "");
 				MainSDK.carInList.get(index).setCouponid(object.getString("ticket_id"));
 				back = "{\"service_name\":\"deliver_ticket\",\"data_target\":\"cloud\",\"ticket_id\":\"" + ticket_id
-						+ "\",\"order_id\":\"" + order_id + "\",\"state\":1,\"errmsg\":\"ÒÑ¼õÃâ\"}";
+						+ "\",\"order_id\":\"" + order_id + "\",\"state\":1,\"errmsg\":\"å·²å‡å…\"}";
 			} else {
 				back = "{\"service_name\":\"deliver_ticket\",\"data_target\":\"cloud\",\"ticket_id\":\"" + ticket_id
 						+ "\",\"order_id\":\"" + order_id
-						+ "\",\"derate_money\":\"0\",\"state\":0,\"errmsg\":\"Î´ÕÒµ½¶©µ¥\"}";
+						+ "\",\"derate_money\":\"0\",\"state\":0,\"errmsg\":\"æœªæ‰¾åˆ°è®¢å•\"}";
 			}
-			System.out.println(">>>>>»Øµ÷·µ»Ø :" + back);
+			System.out.println(">>>>>å›è°ƒè¿”å› :" + back);
 			s = UploadUtil.uploadData(back);
 			System.out.println(s);
 
@@ -310,8 +324,8 @@ public class InterFaceParking extends InterfacePark {
 		case "query_prodprice":
 			trade_no = object.getString("trade_no");
 			back = "{\"service_name\":\"query_prodprice\",\"data_target\":\"cloud\",\"state\":1,\"trade_no\":\""
-					+ trade_no + "\",\"errmsg\":\"²éÑ¯ÔÂ¿¨¼Û¸ñ³É¹¦\",\"price\":\"39.9\"}";
-			System.out.println(">>>>>»Øµ÷·µ»Ø :" + back);
+					+ trade_no + "\",\"errmsg\":\"æŸ¥è¯¢æœˆå¡ä»·æ ¼æˆåŠŸ\",\"price\":\"0.02\"}";
+			System.out.println(">>>>>å›è°ƒè¿”å› :" + back);
 			s = UploadUtil.uploadData(back);
 			System.out.println(s);
 			break;
@@ -320,14 +334,15 @@ public class InterFaceParking extends InterfacePark {
 			String pay_money = object.getString("pay_money");
 
 			back = "{\"service_name\":\"monthcard_pay\",\"data_target\":\"bolink\",\"state\":1,\"trade_no\":\""
-					+ trade_no + "\",\"errmsg\":\"ÔÂ¿¨Ğø·Ñ³É¹¦\",\"park_id\":\"" + parkid + "\",\"pay_money\":\"" + pay_money
+					+ trade_no + "\",\"errmsg\":\"æœˆå¡ç»­è´¹æˆåŠŸ\",\"park_id\":\"" + parkid + "\",\"pay_money\":\"" + pay_money
 					+ "\"}";
-			System.out.println(">>>>>»Øµ÷·µ»Ø :" + back);
+			System.out.println(">>>>>å›è°ƒè¿”å› :" + back);
 			s = UploadUtil.uploadData(back);
 			System.out.println(s);
 			break;
 		case "nolicence_in_park":
-			String user_uuid = object.getString("car_number");
+			String car_number= object.getString("car_number");
+			String user_uuid = "æ— "+ object.getString("car_number");
 			String park_id = object.getString("park_id");
 			String channel_id = object.getString("channel_id");
 			
@@ -336,8 +351,8 @@ public class InterFaceParking extends InterfacePark {
 			entity = new CarInEntity();
 			entity.setCar_number(user_uuid);
 			entity.setIn_time(current/1000);
-			entity.setC_type("ÆÕÍ¨½ø³¡");
-			entity.setCar_type("Ğ¡ĞÍ³µ");
+			entity.setC_type("æ™®é€šè¿›åœº");
+			entity.setCar_type("å°å‹è½¦");
 			entity.setEmpty_plot(99);
 			entity.setIn_channel_id(channel_id);
 			 entity.setOrder_id(current+"");
@@ -345,38 +360,39 @@ public class InterFaceParking extends InterfacePark {
 			entity.setUid(MainSDK.ed_uid.getText());
 			MainSDK.carInList.add(entity);
 			SqliteJDBC.Insert(entity);
-			
-			String msgcarin = JSONObject.fromObject(entity).toString();
-		
-			System.out.println("·¢ËÍ½ø³¡£º" + msgcarin);
-			String statein = UploadUtil.uploadInParkOrder(msgcarin);
-			System.out.println("Éú³É½ø³¡¶©µ¥£º" + state);
-			JSONObject stateinjson = JSONObject.fromObject(statein);
-			if(stateinjson.getString("state").equals("1")){
-				if (MainSDK.carInList != null && MainSDK.carInList.size() > 0) {
-					String[] arr = new String[MainSDK.carInList.size()];
-					for (int i = 0; i < MainSDK.carInList.size(); i++) {
-						arr[i] = MainSDK.carInList.get(i).getCar_number();
-					}
-					MainSDK.jListModel = new DefaultComboBoxModel(arr); // Êı¾İÄ£ĞÍ
-					MainSDK.list.setModel(MainSDK.jListModel);
-				}
-				back = "{\"service_name\":\"nolicence_in_park\",\"data_target\":\"bolink\",\"state\":1,\"errmsg\":\"Éú³ÉÎŞÅÆ³µ¶©µ¥\",\"user_uuid\":\""+user_uuid+"\"}";
-			}else{
-				back = "{\"service_name\":\"nolicence_in_park\",\"data_target\":\"bolink\",\"state\":0,\"errmsg\":\"Éú³ÉÎŞÅÆ³µ¶©µ¥Ê§°Ü\",\"user_uuid\":\""+user_uuid+"\"}";
-			}
 //			try {
-//				Thread.sleep(5000);
+//				Thread.sleep(4000);
 //			} catch (InterruptedException e) {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-			System.out.println(">>>>>»Øµ÷·µ»Ø :" + back);
+			String msgcarin = JSONObject.fromObject(entity).toString();
+		
+			System.out.println("å‘é€è¿›åœºï¼š" + msgcarin);
+			String statein = UploadUtil.uploadInParkOrder(msgcarin);
+			System.out.println("ç”Ÿæˆè¿›åœºè®¢å•ï¼š" + state);
+			JSONObject stateinjson = JSONObject.fromObject(statein);
+			stateinjson.getString("state").equals("1");
+			if(stateinjson.getString("state").equals("1")){
+				if (MainSDK.carInList != null && MainSDK.carInList.size() > 0) {
+						String[] arr = new String[MainSDK.carInList.size()];
+						for (int i = 0; i < MainSDK.carInList.size(); i++) {
+							arr[i] = MainSDK.carInList.get(i).getCar_number();
+						}
+						MainSDK.jListModel = new DefaultComboBoxModel(arr); // æ•°æ®æ¨¡å‹
+						MainSDK.list.setModel(MainSDK.jListModel);
+				}
+				back = "{\"service_name\":\"nolicence_in_park\",\"data_target\":\"bolink\",\"state\":1,\"errmsg\":\"ç”Ÿæˆæ— ç‰Œè½¦è®¢å•\",\"car_number\":\""+car_number+"\"}";
+			}else{
+				back = "{\"service_name\":\"nolicence_in_park\",\"data_target\":\"bolink\",\"state\":0,\"errmsg\":\"ç”Ÿæˆæ— ç‰Œè½¦è®¢å•å¤±è´¥\",\"car_number\":\""+car_number+"\"}";
+			}
+			
+			System.out.println(">>>>>å›è°ƒè¿”å› :" + back);
 			s = UploadUtil.uploadData(back);
 			System.out.println(s);
-			break;
+		break;
 		default:
-			back = "{\"state\":1,\"service_name\":\"default_service\",\"errmsg\":\"Î´´¦ÀíµÄmsg callback\"}";
+			back = "{\"state\":1,\"service_name\":\"default_service\",\"errmsg\":\"æœªå¤„ç†çš„msg callback\"}";
 			break;
 		}
 

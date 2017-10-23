@@ -22,7 +22,7 @@ public class SqliteJDBC {
 			String sql = "CREATE TABLE INPARKORDER" + "(" + "car_number TEXT," + "in_time LONG," + "car_type TEXT,"
 					+ "c_type TEXT," + "uid TEXT," + "order_id TEXT," + "empty_plot INT," + "in_channel_id INT,"
 					+ "worksite_id INT," + "remark TEXT" + ",prepay TEXT"+",coupon TEXT,coupon_type TEXT,couponid TEXT"+")";
-			System.out.println("¥¥Ω®sql£∫" + sql);
+			System.out.println("ÂàõÂª∫sqlÔºö" + sql);
 			sm.executeUpdate(sql);
 			sm.close();
 			c.close();
@@ -42,7 +42,7 @@ public class SqliteJDBC {
 					+ "VALUES('" + carin.getCar_number() + "'," + carin.getIn_time() + ",'" + carin.getCar_type()
 					+ "','" + carin.getC_type() + "','" + carin.getUid() + "','" + carin.getOrder_id() + "',"
 					+ carin.getEmpty_plot() + ",'" + carin.getIn_channel_id() + "');";
-			System.out.println("≤Â»Îsql£∫" + sql);
+			System.out.println("ÊèíÂÖ•sqlÔºö" + sql);
 			sm.executeUpdate(sql);
 			sm.close();
 			c.commit();

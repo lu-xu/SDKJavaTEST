@@ -57,22 +57,37 @@ public class MainSDK {
 	// 21779，ck: Q0RX0PQOF6ZXD4TO 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
 	// 3251，ck: 9H3YD5U5T73GITSP 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
 	
-//	public static final String PARK_ID = "3251";
-//	public static final String U_ID = "200002";
-//	public static final String CK = "9H3YD5U5T73GITSP";
-//	public static final String UK= "EA2D90FEEF1E9F8E";
+//	public static final String PARK_ID = "KJ10001";
+//	public static final String U_ID = "200191";
+//	public static final String CK = "WERRTTTTYY";
+//	public static final String UK= "6E1A70B2BC708876";
 	
+
 	public static final String PARK_ID = "21787";
 	public static final String U_ID = "200159";
 	public static final String CK = "LDGFFLEWS4WE67US";
 	public static final String UK= "C160955B1479621F";
 	
-	public static final String LOCAL_ID= "MS-20170114YUXD_channels_01-1_01-2guyue_aa1channelsMS-20170114YUXD_channels_01-1_01-2";
-	public static final int LOG_SHOW= 1;
-	public static final int PORT = 6789;
-	public static final String CLOUD_ADDR = "yun.bolink.club";
-	public static final String BOLINK_ADDR = "s.bolink.club";
 
+//	public static final String PARK_ID = "3251";
+//	public static final String U_ID = "200002";
+//	public static final String CK = "9H3YD5U5T73GITSP";
+//	public static final String UK= "EA2D90FEEF1E9F8E";
+	
+//	public static final String LOCAL_ID= "gg1_channels_hhhh";
+//	public static final String LOCAL_ID= "gu_CSMD啊1channels__古月测试车场东门进口Ab-1_古月测试车场东门进口Ab-2_古月测试车场xi门出口Ba—3";
+	public static final String LOCAL_ID= "gg1_channels_A1_A2_B3";
+//	public static final String LOCAL_ID= "MS-20170114YUXD_channels_01-1_01-2guyue_aa1channelsMS-20170114YUXD_channels_01-1_01-2";
+//	public static final int LOG_SHOW= 0;
+	public static final int PORT = 6789;
+//	public static final String CLOUD_ADDR = "yun.bolink.club";
+//	public static final String BOLINK_ADDR = "s.bolink.club";
+	public static final String CLOUD_ADDR = "test.bolink.club";
+	public static final String BOLINK_ADDR = "beta.bolink.club";
+//	public static final String BOLINK_ADDR = "192.168.199.206";
+//	public static final String BOLINK_ADDR = "192.168.199.222";
+//	public static final String CLOUD_ADDR = "192.168.199.214";
+	
 	private static JFrame frame;
 	private JTextField ed_carnumber;
 	private JTextField ed_intime;
@@ -830,7 +845,7 @@ public class MainSDK {
 						+ "\",\"park_id\":\"" + textField_1.getText() + "\",\"bport\":6789,\"cport\":6789,\"ckey\":\""
 						+ txteztthbbzhogf.getText()
 						+ "\",\"cloud_addr\":\""+CLOUD_ADDR+"\",\"bolink_addr\":\""+BOLINK_ADDR+"\",\"local_id\":\""
-						+ LOCAL_ID + "\",\"log_show\":"+LOG_SHOW+"}";
+						+ txtBengxiakalaka.getText() + "\",\"log_show\":0}";
 				// 200002 21776 EA2D90FEEF1E9F8E D8G5M0U488B4A7ZD
 				// 200103 21762 10EEF10020BEC31B WERRTTTTYY
 				// 21779，ck: Q0RX0PQOF6ZXD4TO 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E

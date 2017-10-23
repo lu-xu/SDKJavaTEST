@@ -7,8 +7,10 @@ import _Test.bean.AnalysEntity;
 
 public class FileUtil {
 	public static double calPrice(long duration){
-		//单位是秒
-		return duration*0.01/900+0.01;
+		//鍗曚綅鏄
+//		return duration*0.01/900+0.01;
+		return duration*0.01/60;
+//		return duration*1.02/3600;
 	}
 	public static String AnalysLog(String content,List<String> target){
 		List<Integer> times = new ArrayList<>();
@@ -44,7 +46,7 @@ public class FileUtil {
 		entity.setMs200p(ms200p);
 		entity.setMs1000p(ms1000p);
 		entity.setAverage(average);
-		String msg = content+target.size()+"条\n 50ms以下"+ms50+"条，比例"+ms50p+"%\n 50~200ms"+ms200+"条，比例"+ms200p+"%\n 200~1000s"+ms1000_+"条，比例"+ms1000p_+"%\n 1s以上"+ms1000+"条，比例"+ms1000p+"%\n 平均"+average+"ms\n";
+		String msg = content+target.size()+"鏉n 50ms浠ヤ笅"+ms50+"鏉★紝姣斾緥"+ms50p+"%\n 50~200ms"+ms200+"鏉★紝姣斾緥"+ms200p+"%\n 200~1000s"+ms1000_+"鏉★紝姣斾緥"+ms1000p_+"%\n 1s浠ヤ笂"+ms1000+"鏉★紝姣斾緥"+ms1000p+"%\n 骞冲潎"+average+"ms\n";
 		entity.setMsg(msg);
 		return msg;
 	}
