@@ -830,7 +830,7 @@ public class MainSDK {
 						+ "\",\"park_id\":\"" + textField_1.getText() + "\",\"bport\":6789,\"cport\":6789,\"ckey\":\""
 						+ txteztthbbzhogf.getText()
 						+ "\",\"cloud_addr\":\""+CLOUD_ADDR+"\",\"bolink_addr\":\""+BOLINK_ADDR+"\",\"local_id\":\""
-						+ txtBengxiakalaka.getText() + "\",\"log_show\":1}";
+						+ LOCAL_ID + "\",\"log_show\":"+LOG_SHOW+"}";
 				// 200002 21776 EA2D90FEEF1E9F8E D8G5M0U488B4A7ZD
 				// 200103 21762 10EEF10020BEC31B WERRTTTTYY
 				// 21779，ck: Q0RX0PQOF6ZXD4TO 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
