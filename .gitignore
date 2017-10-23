@@ -3,4 +3,4 @@
 .project
 bin/
 logs/
-orders.db
+*.db
