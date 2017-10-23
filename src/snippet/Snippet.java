@@ -2,9 +2,8 @@ package snippet;
 
 public class Snippet {
 	public static void main(String[] args) {
-	//	msg =
-		//		 "{\"service_name\":\"park_log\",\"data_target\":\"cloud\",\"log_id\":\"100094as_8\",\"content\":\"出场道闸故障收费员手动抬杆lala\",\"operate_time\":1499068894,"
-		//		 + "\"user_id\":\"522887\",\"remark\":\"道闸故障\"}";
+		// msg =
+		// "{\"service_name\":\"park_log\",\"data_target\":\"cloud\",\"log_id\":\"100094as_8\",\"content\":\"鍑哄満閬撻椄鏁呴殰鏀惰垂鍛樻墜鍔ㄦ姮鏉唋ala\",\"operate_time\":1499068894,"
+		//
 	}
 }
-
