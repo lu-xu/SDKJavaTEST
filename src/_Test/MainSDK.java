@@ -1215,6 +1215,16 @@ public class MainSDK {
 				springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_8, 0, SpringLayout.SOUTH, edit_prepaycash);
 				springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_8, 0, SpringLayout.EAST, lblNewLabel_6);
 				frame.getContentPane().add(lblNewLabel_8);
+				
+				JButton btn_uninit = new JButton("反初始化");
+				btn_uninit.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						UploadUtil.unInit();
+					}
+				});
+				springLayout.putConstraint(SpringLayout.WEST, btn_uninit, 0, SpringLayout.WEST, textField);
+				springLayout.putConstraint(SpringLayout.SOUTH, btn_uninit, 0, SpringLayout.SOUTH, ed_emptyPlot);
+				frame.getContentPane().add(btn_uninit);
 	}
 
 	int count = 0;
