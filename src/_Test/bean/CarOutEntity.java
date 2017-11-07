@@ -52,9 +52,16 @@ errmsg	错误提示	String
 	private String ticket_id;
 	private String electronic_pay;
 	private String electronic_prepay;//电子预付
-	
+	private String cash_prepay;//现金预支付
 	private String data_target;
 
+	
+	public String getCash_prepay() {
+		return cash_prepay;
+	}
+	public void setCash_prepay(String cash_prepay) {
+		this.cash_prepay = cash_prepay;
+	}
 	public String getData_target() {
 		return data_target;
 	}
@@ -204,7 +211,8 @@ errmsg	错误提示	String
 				+ ", out_time=" + out_time + ", duration=" + duration + ", pay_type=" + pay_type + ", auth_code="
 				+ auth_code + ", total=" + total + ", freereasons=" + freereasons + ", out_channel_id=" + out_channel_id
 				+ ", amount_receivable=" + amount_receivable + ", reduce_amount=" + reduce_amount + ", ticket_id="
-				+ ticket_id + "]";
+				+ ticket_id + ", electronic_pay=" + electronic_pay + ", electronic_prepay=" + electronic_prepay
+				+ ", cash_prepay=" + cash_prepay + ", data_target=" + data_target + "]";
 	}
 	
 	

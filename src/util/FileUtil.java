@@ -7,10 +7,10 @@ import _Test.bean.AnalysEntity;
 
 public class FileUtil {
 	public static double calPrice(long duration){
-		//µ¥Î»ÊÇÃë§’
+		//ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½
 //		return duration*0.01/900+0.01;
-		return duration*0.01/60;
-//		return duration*1.02/3600;
+//		return 0.01;
+		return duration*0.01/60+1.01;
 	}
 	public static String AnalysLog(String content,List<String> target){
 		List<Integer> times = new ArrayList<>();
@@ -46,7 +46,7 @@ public class FileUtil {
 		entity.setMs200p(ms200p);
 		entity.setMs1000p(ms1000p);
 		entity.setAverage(average);
-		String msg = content+target.size()+"Ìõ\n 50msÒÔÏÂ"+ms50+"Ìõ£¬±ÈÀı"+ms50p+"%\n 50~200ms"+ms200+"Ìõ£¬±ÈÀı"+ms200p+"%\n 200~1000s"+ms1000_+"Ìõ£¬±ÈÀı"+ms1000p_+"%\n 1sÒÔÉÏ"+ms1000+"Ìõ£¬±ÈÀı"+ms1000p+"%\n Æ½¾ù"+average+"ms\n";
+		String msg = content+target.size()+"ï¿½ï¿½\n 50msï¿½ï¿½ï¿½ï¿½"+ms50+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+ms50p+"%\n 50~200ms"+ms200+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+ms200p+"%\n 200~1000s"+ms1000_+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+ms1000p_+"%\n 1sï¿½ï¿½ï¿½ï¿½"+ms1000+"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+ms1000p+"%\n Æ½ï¿½ï¿½"+average+"ms\n";
 		entity.setMsg(msg);
 		return msg;
 	}

@@ -21,8 +21,8 @@ public class SqliteJDBC {
 			sm = c.createStatement();
 			String sql = "CREATE TABLE INPARKORDER" + "(" + "car_number TEXT," + "in_time LONG," + "car_type TEXT,"
 					+ "c_type TEXT," + "uid TEXT," + "order_id TEXT," + "empty_plot INT," + "in_channel_id INT,"
-					+ "worksite_id INT," + "remark TEXT" + ",prepay TEXT"+",coupon TEXT,coupon_type TEXT,couponid TEXT"+")";
-			System.out.println("创建sql：" + sql);
+					+ "worksite_id INT," + "remark TEXT" + ",elc_prepay TEXT"+ ",cash_prepay TEXT"+",coupon TEXT,coupon_type TEXT,couponid TEXT"+")";
+			System.out.println("����sql��" + sql);
 			sm.executeUpdate(sql);
 			sm.close();
 			c.close();
@@ -42,7 +42,7 @@ public class SqliteJDBC {
 					+ "VALUES('" + carin.getCar_number() + "'," + carin.getIn_time() + ",'" + carin.getCar_type()
 					+ "','" + carin.getC_type() + "','" + carin.getUid() + "','" + carin.getOrder_id() + "',"
 					+ carin.getEmpty_plot() + ",'" + carin.getIn_channel_id() + "');";
-			System.out.println("插入sql：" + sql);
+//			System.out.println("����sql��" + sql);
 			sm.executeUpdate(sql);
 			sm.close();
 			c.commit();
@@ -71,12 +71,13 @@ public class SqliteJDBC {
 				carin.setIn_channel_id(rs.getString("in_channel_id"));
 				carin.setIn_time(rs.getLong("in_time"));
 				carin.setOrder_id(rs.getString("order_id"));
-				carin.setPrepay(rs.getString("prepay"));
-				carin.setUid(rs.getString("uid"));
+				carin.setPrepay(rs.getString("elc_prepay"));
+				carin.setPrepay_cash(rs.getString("cash_prepay"));
+				carin.setUid(rs.getString("uid")); 
 				list.add(carin);
 			}
 			rs.close();
-			sm.close();
+			sm.close(); 
 			c.close();
 		} catch (Exception e) {
 			e.printStackTrace();

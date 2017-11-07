@@ -8,11 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.text.DecimalFormat;
-import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,8 +37,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.FontUIResource;
 
-
-
 import _Test.bean.CarInEntity;
 import _Test.bean.CarOutEntity;
 import _Test.bean.PayState;
@@ -57,37 +51,56 @@ public class MainSDK {
 	// 21779，ck: Q0RX0PQOF6ZXD4TO 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
 	// 3251，ck: 9H3YD5U5T73GITSP 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
 	
+	public static final String PARK_ID = "3251";
+	public static final String U_ID = "200002";
+	public static final String CK = "9H3YD5U5T73GITSP";
+	public static final String UK= "EA2D90FEEF1E9F8E";
+	
+//	public static final String PARK_ID = "21787";
+//	public static final String U_ID = "200159";
+//	public static final String CK = "LDGFFLEWS4WE67US";
+//	public static final String UK= "C160955B1479621F";
+	
 //	public static final String PARK_ID = "KJ10001";
 //	public static final String U_ID = "200191";
 //	public static final String CK = "WERRTTTTYY";
 //	public static final String UK= "6E1A70B2BC708876";
 	
-
-	public static final String PARK_ID = "21787";
-	public static final String U_ID = "200159";
-	public static final String CK = "LDGFFLEWS4WE67US";
-	public static final String UK= "C160955B1479621F";
 	
+//	public static final String PARK_ID = "21823";
+//	public static final String U_ID = "200102";
+//	public static final String CK = "X34KICEDPDOVXMCW";
+//	public static final String UK= "AB4B3DEEC7AEA20D";
+	
+	//API初始化信息修改
+	String msg = "{\"union_id\":\"200208\","
+					+ "\"ukey\":\"8403A41ED5EF20BC\","
+					+ "\"park_id\":\"21835\","
+//					+ "\"bport\":6789,"
+//					+ "\"cport\":6789,"
+//					+ "\"ckey\":\"9XO9O2RQGIUCGLAS \","
+//					+ "\"cloud_addr\":\"test.bolink.club\","
+//					+ "\"bolink_addr\":\"192.168.199.122\","
+	                + "\"bolink_addr\":\"beta.bolink.club\","
+					+ "\"local_id\":\"0071cc97102b_1001_qh321_GUYUE车场-atest1\","
+					+ "\"log_show\":0"
+					+ "}";
 
-//	public static final String PARK_ID = "3251";
-//	public static final String U_ID = "200002";
-//	public static final String CK = "9H3YD5U5T73GITSP";
-//	public static final String UK= "EA2D90FEEF1E9F8E";
 	
 //	public static final String LOCAL_ID= "gg1_channels_hhhh";
 //	public static final String LOCAL_ID= "gu_CSMD啊1channels__古月测试车场东门进口Ab-1_古月测试车场东门进口Ab-2_古月测试车场xi门出口Ba—3";
-	public static final String LOCAL_ID= "gg1_channels_A1_A2_B3";
+//	public static final String LOCAL_ID= "gg1_channels_A1_A2_B3";
 //	public static final String LOCAL_ID= "MS-20170114YUXD_channels_01-1_01-2guyue_aa1channelsMS-20170114YUXD_channels_01-1_01-2";
-	public static final int LOG_SHOW= 0;
+//	public static final String LOCAL_ID= "lph_channels_01-1";
+	public static final String LOCAL_ID= "dfgavdgare_channels_01-1";
+	
+	public static final int LOG_SHOW= 1;
 	public static final int PORT = 6789;
 //	public static final String CLOUD_ADDR = "yun.bolink.club";
 //	public static final String BOLINK_ADDR = "s.bolink.club";
 	public static final String CLOUD_ADDR = "test.bolink.club";
 	public static final String BOLINK_ADDR = "beta.bolink.club";
-//	public static final String BOLINK_ADDR = "192.168.199.206";
-//	public static final String BOLINK_ADDR = "192.168.199.222";
-//	public static final String CLOUD_ADDR = "192.168.199.214";
-	
+
 	private static JFrame frame;
 	private JTextField ed_carnumber;
 	private JTextField ed_intime;
@@ -156,7 +169,7 @@ public class MainSDK {
 	public static String Edityouhui;
 	static ListModel jListModel; // 数据模型
 	String[] strArr = new String[] {};
-	static JList list = new JList();
+	static JList list_orders = new JList();
 	public static List<CarInEntity> carInList = new ArrayList<CarInEntity>();
 	private static List<CarOutEntity> carOutList = new ArrayList<CarOutEntity>();
 	private static List<PayState> payStateList = new ArrayList<PayState>();
@@ -187,7 +200,7 @@ public class MainSDK {
 		frame.getContentPane().add(label);
 
 		JLabel label_1 = new JLabel("\u8F66\u724C\u53F7");
-		springLayout.putConstraint(SpringLayout.NORTH, list, -1, SpringLayout.NORTH, label_1);
+		springLayout.putConstraint(SpringLayout.NORTH, list_orders, -1, SpringLayout.NORTH, label_1);
 		springLayout.putConstraint(SpringLayout.NORTH, label_1, 11, SpringLayout.SOUTH, label);
 		springLayout.putConstraint(SpringLayout.WEST, label_1, 10, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(label_1);
@@ -293,7 +306,7 @@ public class MainSDK {
 						arr[i] = carInList.get(i).getCar_number();
 					}
 					jListModel = new DefaultComboBoxModel(arr); // 数据模型
-					list.setModel(jListModel);
+					list_orders.setModel(jListModel);
 				}
 			}
 		});
@@ -416,9 +429,10 @@ public class MainSDK {
 				outentity.setOrder_id(ed_orderid.getText());
 				outentity.setOut_channel_id(ed_outChannelId.getText());
 				outentity.setTotal(ed_total_now.getText());
-				outentity.setReduce_amount(textField_3.getText());
+				outentity.setReduce_amount(edit_decrate_money.getText());
 				outentity.setTicket_id(ticket_id.getText());
 				outentity.setElectronic_prepay(edit_prepay.getText());
+				outentity.setCash_prepay(edit_prepaycash.getText());
 //				outentity.setAmount_receivable(
 //						new BigDecimal(FileUtil.calPrice(Str2Unix(ed_outtime.getText()) - Str2Unix(ed_intime_out.getText()))).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "");
 				outentity.setAmount_receivable(ed_total.getText());
@@ -447,16 +461,16 @@ public class MainSDK {
 			}
 		});
 		frame.getContentPane().add(button_1);
-		list.setModel(jListModel);
-		list.setPreferredSize(new java.awt.Dimension(120, 200));
+		list_orders.setModel(jListModel);
+		list_orders.setPreferredSize(new java.awt.Dimension(120, 200));
 		// itemclicklistener
-		list.addListSelectionListener(new ListSelectionListener() {
+		list_orders.addListSelectionListener(new ListSelectionListener() {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				// TODO Auto-generated method stub
 				try {
-					selectionIndex = list.getSelectedIndex();
+					selectionIndex = list_orders.getSelectedIndex();
 					CarInEntity entity = carInList.get(selectionIndex);
 					System.out.println(entity.toString());
 
@@ -468,10 +482,10 @@ public class MainSDK {
 					ed_inchannel_out.setText(entity.getIn_channel_id());
 					ed_outChannelId.setText(entity.getIn_channel_id());
 					ed_outtime.setText(Unix2Str(System.currentTimeMillis(), 1));
-					textField_3.setText(entity.getCoupon());
+					edit_decrate_money.setText(entity.getCoupon());
 					ticket_id.setText(entity.getCouponid());
 					edit_prepay.setText(entity.getPrepay());
-
+					edit_prepaycash.setText(entity.getPrepay_cash());
 					Long timespan = System.currentTimeMillis() / 1000 - entity.getIn_time();
 					double total = FileUtil.calPrice(timespan);// 本地计算的总价格
 					ed_total.setText(new BigDecimal(total).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "");
@@ -559,7 +573,7 @@ public class MainSDK {
 
 			}
 		});
-		frame.getContentPane().add(list);
+		frame.getContentPane().add(list_orders);
 
 		JLabel lblNewLabel_1 = new JLabel("扫码");
 		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_1, 0, SpringLayout.WEST, label_1);
@@ -598,9 +612,10 @@ public class MainSDK {
 				outentity.setTotal(ed_total_now.getText());
 				outentity.setAuth_code(ed_scan.getText());
 				outentity.setPay_type("kfcpay");
-				outentity.setReduce_amount(textField_3.getText());
+				outentity.setReduce_amount(edit_decrate_money.getText());
 				outentity.setTicket_id(ticket_id.getText());
 				outentity.setElectronic_prepay(edit_prepay.getText());
+				outentity.setCash_prepay(edit_prepaycash.getText());
 //				outentity.setAmount_receivable(
 //						new BigDecimal(FileUtil.calPrice(Str2Unix(ed_outtime.getText()) - Str2Unix(ed_intime_out.getText()))).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "");
 				outentity.setAmount_receivable(ed_total.getText());
@@ -633,9 +648,10 @@ public class MainSDK {
 				outentity.setOrder_id(ed_orderid.getText());
 				outentity.setOut_channel_id(ed_outChannelId.getText());
 				outentity.setTotal(ed_total_now.getText());
-				outentity.setReduce_amount(textField_3.getText());
+				outentity.setReduce_amount(edit_decrate_money.getText());
 				outentity.setTicket_id(ticket_id.getText());
 				outentity.setElectronic_prepay(edit_prepay.getText());
+				outentity.setCash_prepay(edit_prepaycash.getText());
 //				outentity.setAmount_receivable(
 //						new BigDecimal(FileUtil.calPrice(Str2Unix(ed_outtime.getText()) - Str2Unix(ed_intime_out.getText()))).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "");
 				outentity.setAmount_receivable(ed_total.getText());
@@ -801,7 +817,7 @@ public class MainSDK {
 
 		textField = new JTextField();
 		textField.setText("200002");
-		springLayout.putConstraint(SpringLayout.EAST, list, -74, SpringLayout.WEST, textField);
+		springLayout.putConstraint(SpringLayout.EAST, list_orders, -74, SpringLayout.WEST, textField);
 		springLayout.putConstraint(SpringLayout.NORTH, textField, -3, SpringLayout.NORTH, label_1);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
@@ -845,7 +861,7 @@ public class MainSDK {
 						+ "\",\"park_id\":\"" + textField_1.getText() + "\",\"bport\":6789,\"cport\":6789,\"ckey\":\""
 						+ txteztthbbzhogf.getText()
 						+ "\",\"cloud_addr\":\""+CLOUD_ADDR+"\",\"bolink_addr\":\""+BOLINK_ADDR+"\",\"local_id\":\""
-						+ LOCAL_ID + "\",\"log_show\":"+LOG_SHOW+"}";
+						+ txtBengxiakalaka.getText() + "\",\"log_show\":"+LOG_SHOW+"}";
 				// 200002 21776 EA2D90FEEF1E9F8E D8G5M0U488B4A7ZD
 				// 200103 21762 10EEF10020BEC31B WERRTTTTYY
 				// 21779，ck: Q0RX0PQOF6ZXD4TO 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
@@ -880,9 +896,10 @@ public class MainSDK {
 				outentity.setOrder_id(ed_orderid.getText());
 				outentity.setOut_channel_id(ed_outChannelId.getText());
 				outentity.setTotal(ed_total_now.getText());
-				outentity.setReduce_amount(textField_3.getText());
+				outentity.setReduce_amount(edit_decrate_money.getText());
 				outentity.setTicket_id(ticket_id.getText());
 				outentity.setElectronic_prepay(edit_prepay.getText());
+				outentity.setCash_prepay(edit_prepaycash.getText());
 //				outentity.setAmount_receivable(
 //						new BigDecimal(FileUtil.calPrice(Str2Unix(ed_outtime.getText()) - Str2Unix(ed_intime_out.getText()))).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "");
 				outentity.setAmount_receivable(ed_total.getText());
@@ -935,10 +952,11 @@ public class MainSDK {
 				outentity.setOut_uid(outuid);
 				outentity.setOrder_id(ed_orderid.getText());
 				outentity.setOut_channel_id(ed_outChannelId.getText());
-				outentity.setTotal(ed_total_now.getText());
-				outentity.setReduce_amount(textField_3.getText());
+				outentity.setTotal("0");
+				outentity.setReduce_amount(edit_decrate_money.getText());
 				outentity.setTicket_id(ticket_id.getText());
 				outentity.setElectronic_prepay(edit_prepay.getText());
+				outentity.setCash_prepay(edit_prepaycash.getText());
 //				outentity.setAmount_receivable(
 //						new BigDecimal(FileUtil.calPrice(Str2Unix(ed_outtime.getText()) - Str2Unix(ed_intime_out.getText()))).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()+ "");
 				outentity.setAmount_receivable(ed_total.getText());
@@ -1048,15 +1066,15 @@ public class MainSDK {
 		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_5, 0, SpringLayout.EAST, btnNewButton_6);
 		frame.getContentPane().add(lblNewLabel_5);
 
-		textField_3 = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField_3, 0, SpringLayout.NORTH, ed_outChannelId);
-		springLayout.putConstraint(SpringLayout.WEST, textField_3, 20, SpringLayout.EAST, lblNewLabel_5);
-		frame.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		edit_decrate_money = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, edit_decrate_money, 0, SpringLayout.NORTH, ed_outChannelId);
+		springLayout.putConstraint(SpringLayout.WEST, edit_decrate_money, 20, SpringLayout.EAST, lblNewLabel_5);
+		frame.getContentPane().add(edit_decrate_money);
+		edit_decrate_money.setColumns(10);
 
 		ticket_id = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, ticket_id, 44, SpringLayout.SOUTH, list);
-		springLayout.putConstraint(SpringLayout.WEST, ticket_id, 23, SpringLayout.EAST, textField_3);
+		springLayout.putConstraint(SpringLayout.NORTH, ticket_id, 44, SpringLayout.SOUTH, list_orders);
+		springLayout.putConstraint(SpringLayout.WEST, ticket_id, 23, SpringLayout.EAST, edit_decrate_money);
 		frame.getContentPane().add(ticket_id);
 		ticket_id.setColumns(10);
 
@@ -1066,7 +1084,7 @@ public class MainSDK {
 		frame.getContentPane().add(edit_prepay);
 		edit_prepay.setColumns(10);
 
-		JLabel lblNewLabel_6 = new JLabel("预付");
+		JLabel lblNewLabel_6 = new JLabel("电子预付");
 		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_6, 0, SpringLayout.NORTH, label_14);
 		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_6, -6, SpringLayout.WEST, edit_prepay);
 		frame.getContentPane().add(lblNewLabel_6);
@@ -1111,7 +1129,7 @@ public class MainSDK {
 						System.out.println("  18位了发起支付");
 						carOut.setAuth_code(ed_scan.getText());
 						carOut.setPay_type("sweepcode");
-						carOut.setElectronic_pay(ed_total.getText());
+						carOut.setElectronic_pay(ed_total_now.getText());
 
 						String msg = JSONObject.fromObject(carOut).toString();
 						System.out.println(msg);
@@ -1147,7 +1165,7 @@ public class MainSDK {
 				arr[i] = carInList.get(i).getCar_number();
 			}
 			jListModel = new DefaultComboBoxModel(arr); // 数据模型
-			list.setModel(jListModel);
+			list_orders.setModel(jListModel);
 		}
 		
 		
@@ -1184,18 +1202,19 @@ public class MainSDK {
 				springLayout.putConstraint(SpringLayout.WEST, btnNewButton_8, 80, SpringLayout.EAST, textField_4);
 				frame.getContentPane().add(btnNewButton_8);
 				
-				JButton btnNewButton_9 = new JButton("New button");
-				frame.getContentPane().add(btnNewButton_9);
+				edit_prepaycash = new JTextField();
+				springLayout.putConstraint(SpringLayout.NORTH, edit_prepaycash, 6, SpringLayout.SOUTH, btnNewButton_5);
+				springLayout.putConstraint(SpringLayout.WEST, edit_prepaycash, 0, SpringLayout.WEST, edit_prepay);
+				frame.getContentPane().add(edit_prepaycash);
+				edit_prepaycash.setColumns(10);
 				
-				JButton anti_init = new JButton("反初始化");
-				anti_init.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						UploadUtil.unInit();
-					}
-				});
-				springLayout.putConstraint(SpringLayout.NORTH, anti_init, 0, SpringLayout.NORTH, label_12);
-				springLayout.putConstraint(SpringLayout.WEST, anti_init, 0, SpringLayout.WEST, textField);
-				frame.getContentPane().add(anti_init);
+				JLabel lblNewLabel_7 = new JLabel("现金预付");
+				frame.getContentPane().add(lblNewLabel_7);
+				
+				JLabel lblNewLabel_8 = new JLabel("现金预付");
+				springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_8, 0, SpringLayout.SOUTH, edit_prepaycash);
+				springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_8, 0, SpringLayout.EAST, lblNewLabel_6);
+				frame.getContentPane().add(lblNewLabel_8);
 	}
 
 	int count = 0;
@@ -1211,12 +1230,14 @@ public class MainSDK {
 	private JTextField txteztthbbzhogf;
 	private JTextField txtBengxiakalaka;
 	private JTextField textField_2;
-	public static JTextField textField_3;// 优惠金额
+	public static JTextField edit_decrate_money;// 优惠金额
 	public static JTextField ticket_id;// 优惠时长
 	public static JTextField edit_prepay;// 预付
+	public static JTextField edit_prepaycash;// 预付
 	private JTextField ed_uid_out;
 	public static JTextField ed_total_now;
 	private JTextField textField_4;
+
 
 	private String getMsg(String msg) {
 		JSONObject jsonInit = JSONObject.fromObject(msg);
@@ -1284,7 +1305,7 @@ public class MainSDK {
 				arr[i] = entity.getCar_number();
 			}
 			jListModel = new DefaultComboBoxModel(arr); // 数据模型
-			list.setModel(jListModel);
+			list_orders.setModel(jListModel);
 		}
 	}
 

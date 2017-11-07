@@ -1,4 +1,4 @@
- package _Test;
+package _Test;
 
 import java.math.BigDecimal;
 
@@ -58,18 +58,20 @@ public class InterFaceParking extends InterfacePark {
 				outentity.setOut_uid(entity.getUid());
 				outentity.setOrder_id(orderid);
 				outentity.setOut_channel_id(entity.getIn_channel_id());
-				outentity.setTotal(MainSDK.ed_total.getText());
-				outentity.setReduce_amount(MainSDK.textField_3.getText());
+				outentity.setTotal(MainSDK.ed_total_now.getText());
+				outentity.setAmount_receivable(MainSDK.ed_total.getText());
+				outentity.setReduce_amount(MainSDK.edit_decrate_money.getText());
 				outentity.setTicket_id(MainSDK.ticket_id.getText());
-				outentity.setElectronic_prepay("0");
-				outentity.setElectronic_pay(MainSDK.ed_total.getText());
+//				outentity.setElectronic_prepay("0");
+				outentity.setElectronic_pay(MainSDK.ed_total_now.getText());
+				outentity.setElectronic_prepay(MainSDK.edit_prepay.getText());
 				outentity.setService_name("upload_order");
 				outentity.setData_target("cloud");
 				try {
 					String outmsg = JSONObject.fromObject(outentity).toString();
 					System.out.println(">>>>>outpark给云端返回 :" + outmsg);
 					String outstate = UploadUtil.uploadData(outmsg);
-					System.out.println(">>>>>outpark给云端返回 :" + state);
+					System.out.println(">>>>>outpark给云端返回结果 :" + state);
 					if (MainSDK.getState(outstate) == 1) {
 						SqliteJDBC.Delete(outentity.getOrder_id());
 //						MainSDK.ShowDialog(outentity.getCar_number() + "现金出场成功");
@@ -82,7 +84,7 @@ public class InterFaceParking extends InterfacePark {
 				String bolinkstr = "{\"service_name\":\"outpark\",\"data_target\":\"bolink\",\"state\":1,\"errmsg\":\"支付成功\",\"trade_no\":\""+trade_no+"\",\"order_id\":\""+orderid+"\"}";
 				System.out.println(">>>>>outpark给bolink返回 :" + bolinkstr);
 				String s = UploadUtil.uploadData(bolinkstr);
-				System.out.println(">>>>>outpark给bolink返回 :" + s);
+				System.out.println(">>>>>outpark给bolink返回结果 :" + s);
 				
 			} else {
 
@@ -91,12 +93,20 @@ public class InterFaceParking extends InterfacePark {
 		case "prepay_order":
 
 			String prepay = object.getString("prepay");
+			int prepay_type = object.getInt("prepay_type");
 			orderid = object.getString("order_id");
 
 			for (int i = 0; i < MainSDK.carInList.size(); i++) {
 				if (MainSDK.carInList.get(i).getOrder_id().equals(orderid)) {
 					querry = true;
-					MainSDK.carInList.get(i).setPrepay(prepay);
+					if(prepay_type==1){
+						//1电子预支付
+						MainSDK.carInList.get(i).setPrepay(prepay);
+					}else{
+						//2现金预支付
+						MainSDK.carInList.get(i).setPrepay_cash(prepay);
+					}
+					
 					break;
 				} else {
 					querry = false;
@@ -106,8 +116,15 @@ public class InterFaceParking extends InterfacePark {
 			if (querry) {
 				errmsg = "success";
 				state = 1;
-				SqliteJDBC.Update("prepay", prepay, orderid);
-				MainSDK.edit_prepay.setText(prepay);
+				if(prepay_type==1){
+					//1电子预支付
+					SqliteJDBC.Update("elc_prepay", prepay, orderid);
+					MainSDK.edit_prepay.setText(prepay);
+				}else{
+					//2现金预支付
+					SqliteJDBC.Update("cash_prepay", prepay, orderid);
+					MainSDK.edit_prepaycash.setText(prepay);
+				}
 				String total = MainSDK.ed_total.getText();
 				if (total != null && !total.equals("")) {
 					double totalnow = new BigDecimal(Double.parseDouble(total) - Double.parseDouble(prepay))
@@ -151,11 +168,16 @@ public class InterFaceParking extends InterfacePark {
 							.doubleValue();
 					Total = price;
 					// 先减掉预付
-					String prepaystr = SqliteJDBC.Querry("order_id", order_id,"prepay");
+					String prepaystr_elc = SqliteJDBC.Querry("order_id", order_id,"elc_prepay");
+					String prepaystr_cash = SqliteJDBC.Querry("order_id", order_id,"cash_prepay");
 //					String prepaystr = MainSDK.edit_prepay.getText().equals("")?"0":MainSDK.edit_prepay.getText();
-					if (prepaystr != null && !order_id.equals("")) {
-						double prepays = Double.parseDouble(prepaystr);
-						Total = price - prepays;
+					if (prepaystr_elc != null && !order_id.equals("")) {
+						double prepays = Double.parseDouble(prepaystr_elc);
+						Total = Total - prepays;
+					}
+					if (prepaystr_cash != null && !order_id.equals("")) {
+						double prepays = Double.parseDouble(prepaystr_cash);
+						Total = Total - prepays;
 					}
 
 					// 再减掉优惠券
@@ -194,9 +216,14 @@ public class InterFaceParking extends InterfacePark {
 					Total = price;
 					// 先减掉预付
 					String prepaystr = MainSDK.edit_prepay.getText().equals("")?"0":MainSDK.edit_prepay.getText();
+					String prepaystr_cash = MainSDK.edit_prepaycash.getText().equals("")?"0":MainSDK.edit_prepaycash.getText();
 					if (prepaystr != null && !order_id.equals("")) {
 						double prepays = Double.parseDouble(prepaystr);
-						Total = price - prepays;
+						Total = Total - prepays;
+					}
+					if (prepaystr_cash != null && !order_id.equals("")) {
+						double prepays = Double.parseDouble(prepaystr_cash);
+						Total = Total - prepays;
 					}
 
 					// 再减掉优惠券
@@ -229,45 +256,31 @@ public class InterFaceParking extends InterfacePark {
 				state = 1;
 			} else {
 				state = 0;
-				errmsg = "未查询到此订单lalala";
+				errmsg = "未查询到此订单";
 			}
 			// = (prices-Double.parseDouble(derate_money))>0
 			String query_order_no = "";
 			if(object.toString().contains("query_order_no")){
 				query_order_no = object.getString("query_order_no");
 			}
-			
-			try {
-				Thread.sleep(2200);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 			back = "{\"service_name\":\"query_price\",\"data_target\":\"bolink\",\"errmsg\":\"" + errmsg
 					+ "\",\"state\":" + state + ",\"park_id\":\"" + parkid + "\",\"order_id\":\"" + order_id
 					+ "\",\"price\":\"" + Total + "\",\"duration\":" + ((duration / 60) >= 1 ? (duration / 60) : 1)
 					+ ",\"free_out_time\":" + 100 + ",\"query_time\":" + System.currentTimeMillis() / 1000
 					+ ",\"derate_money\":\"" + derate_money + "\",\"derate_duration\":\"" + derate_duration
-					+ "\","
-					+ "\"total\":\"" + price + "\","
-					+ "\"query_order_no\":\""+query_order_no+"\"}";
-//			
-//			back = "{\"service_name\":\"query_price\",\"data_target\":\"bolink\",\"errmsg\":\"没有此车入场信息啦\",\"state\":0,\"park_id\":\"" + parkid + "\",\"order_id\":\""+order_id+"\",\"price\":\"0.00\",\"duration\":54,\"free_out_time\":" + 100 + ",\"query_time\":" + System.currentTimeMillis() / 1000
-//					+ ",\"derate_money\":\"5.0\",\"derate_duration\":0,\"total\":\"0.00\",\"query_order_no\":\"\"}";
+					+ "\",\"total\":\"" + price + "\",\"query_order_no\":\""+query_order_no+"\"}";
 			System.out.println(">>>>>回调返回 :" + back);
-			String isSend = UploadUtil.uploadData(back);
-			System.out.println(">>>>>查询价格回调返回状态 :" + isSend);
+			UploadUtil.uploadData(back);
 			break;
 		case "lock_car":
-			order_id = object.getString("order_id");
+
 			int islock = object.getInt("is_locked");
 			if (islock == 0) {
 				// 解锁
-				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"解锁成功\",\"data_target\":\"cloud\",\"order_id\":\"" + order_id + "\",\"is_locked\":0}";
+				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"解锁成功\",\"data_target\":\"cloud\",\"order_id\":\"12345\",\"is_locked\":0}";
 			} else {
 				// 锁车
-				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"锁车成功\",\"data_target\":\"cloud\",\"order_id\":\"" + order_id + "\",\"is_locked\":1}";
+				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"锁车成功\",\"data_target\":\"cloud\",\"order_id\":\"12345\",\"is_locked\":1}";
 			}
 
 			System.out.println(">>>>>回调返回 :" + back);
@@ -302,7 +315,12 @@ public class InterFaceParking extends InterfacePark {
 					derate_money = Double.parseDouble(object.getString("duration")) * FileUtil.calPrice(3600);
 //					MainSDK.ticket_id.setText(object.getString("duration"));
 				}
-				MainSDK.textField_3.setText(new BigDecimal(derate_money).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "");
+				double decrate = new BigDecimal(derate_money).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+				double totalnow = new BigDecimal(Double.parseDouble(MainSDK.ed_total_now.getText())-decrate).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+				//优惠金额那一栏填写
+				MainSDK.edit_decrate_money.setText(decrate + "");
+				//使用了优惠券后的当前金额
+				MainSDK.ed_total_now.setText(totalnow+"");
 				SqliteJDBC.Update("coupon", derate_money + "", order_id);
 				SqliteJDBC.Update("coupon_type", ticket_type + "", order_id);
 				SqliteJDBC.Update("couponid", object.getString("ticket_id"), order_id);
@@ -324,7 +342,7 @@ public class InterFaceParking extends InterfacePark {
 		case "query_prodprice":
 			trade_no = object.getString("trade_no");
 			back = "{\"service_name\":\"query_prodprice\",\"data_target\":\"cloud\",\"state\":1,\"trade_no\":\""
-					+ trade_no + "\",\"errmsg\":\"查询月卡价格成功\",\"price\":\"0.02\"}";
+					+ trade_no + "\",\"errmsg\":\"查询月卡价格成功\",\"price\":\"39.9\"}";
 			System.out.println(">>>>>回调返回 :" + back);
 			s = UploadUtil.uploadData(back);
 			System.out.println(s);
@@ -341,8 +359,7 @@ public class InterFaceParking extends InterfacePark {
 			System.out.println(s);
 			break;
 		case "nolicence_in_park":
-			String car_number= object.getString("car_number");
-			String user_uuid = "无"+ object.getString("car_number");
+			String user_uuid = object.getString("car_number");
 			String park_id = object.getString("park_id");
 			String channel_id = object.getString("channel_id");
 			
@@ -360,37 +377,36 @@ public class InterFaceParking extends InterfacePark {
 			entity.setUid(MainSDK.ed_uid.getText());
 			MainSDK.carInList.add(entity);
 			SqliteJDBC.Insert(entity);
-//			try {
-//				Thread.sleep(4000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			
 			String msgcarin = JSONObject.fromObject(entity).toString();
 		
 			System.out.println("发送进场：" + msgcarin);
 			String statein = UploadUtil.uploadInParkOrder(msgcarin);
 			System.out.println("生成进场订单：" + state);
 			JSONObject stateinjson = JSONObject.fromObject(statein);
-			stateinjson.getString("state").equals("1");
 			if(stateinjson.getString("state").equals("1")){
 				if (MainSDK.carInList != null && MainSDK.carInList.size() > 0) {
-						String[] arr = new String[MainSDK.carInList.size()];
-						for (int i = 0; i < MainSDK.carInList.size(); i++) {
-							arr[i] = MainSDK.carInList.get(i).getCar_number();
-						}
-						MainSDK.jListModel = new DefaultComboBoxModel(arr); // 数据模型
-						MainSDK.list.setModel(MainSDK.jListModel);
+					String[] arr = new String[MainSDK.carInList.size()];
+					for (int i = 0; i < MainSDK.carInList.size(); i++) {
+						arr[i] = MainSDK.carInList.get(i).getCar_number();
+					}
+					MainSDK.jListModel = new DefaultComboBoxModel(arr); // 数据模型
+					MainSDK.list_orders.setModel(MainSDK.jListModel);
 				}
-				back = "{\"service_name\":\"nolicence_in_park\",\"data_target\":\"bolink\",\"state\":1,\"errmsg\":\"生成无牌车订单\",\"car_number\":\""+car_number+"\"}";
+				back = "{\"service_name\":\"nolicence_in_park\",\"data_target\":\"bolink\",\"state\":1,\"errmsg\":\"生成无牌车订单\",\"car_number\":\""+user_uuid+"\",\"timetemp\":"+System.currentTimeMillis()/1000+"}";
 			}else{
-				back = "{\"service_name\":\"nolicence_in_park\",\"data_target\":\"bolink\",\"state\":0,\"errmsg\":\"生成无牌车订单失败\",\"car_number\":\""+car_number+"\"}";
+				back = "{\"service_name\":\"nolicence_in_park\",\"data_target\":\"bolink\",\"state\":0,\"errmsg\":\"生成无牌车订单失败\",\"car_number\":\""+user_uuid+"\",\"timetemp\":"+System.currentTimeMillis()/1000+"}";
 			}
-			
+//			try {
+//				Thread.sleep(5000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			System.out.println(">>>>>回调返回 :" + back);
 			s = UploadUtil.uploadData(back);
 			System.out.println(s);
-		break;
+			break;
 		default:
 			back = "{\"state\":1,\"service_name\":\"default_service\",\"errmsg\":\"未处理的msg callback\"}";
 			break;

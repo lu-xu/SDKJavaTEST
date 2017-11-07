@@ -65,7 +65,7 @@ public class GenerageJson {
 				String source = textField.getText();
 //				String target =  source.replaceAll("\"", "\\"+"\"");
 				String target =  source.replaceAll("\"", "\\\\\"");
-//				String target =  "{\"car_type\":\"澶ц溅\",\"uid\":\"325101\",\"car_number\":\"浜珿H0093\", \"in_time\": 1490875218,\"order_id\":\"325101\",\"in_channel_id\":\"A1\",\"worksite_id\":23, \"c_type\": \"閫氶亾鎵墝\",\"empty_plot\": 20,\"remark\":\"鍏ュ満淇℃伅澶囨敞\"}";
+//				String target =  "{\"car_type\":\"大车\",\"uid\":\"325101\",\"car_number\":\"京GH0093\", \"in_time\": 1490875218,\"order_id\":\"325101\",\"in_channel_id\":\"A1\",\"worksite_id\":23, \"c_type\": \"通道扫牌\",\"empty_plot\": 20,\"remark\":\"入场信息备注\"}";
 				textField_1.setText(target);
 			}
 		});

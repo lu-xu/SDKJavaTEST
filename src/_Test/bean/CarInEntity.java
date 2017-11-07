@@ -5,19 +5,19 @@ import java.io.Serializable;
 public class CarInEntity implements Serializable{
 	/**
 	 * 
-	 * car_number	³µÅÆ	String	¾©GH0093
-in_time	½ø³¡Ê±¼ä	Number	1490875218
-car_type	³µÐÍ	String	Ð¡ÐÍ³µ
-c_type	½ø³¡ÀàÐÍ£¨ÔÂ¿¨..£©	String	ÆÕÍ¨Èë³¡»òÔÂ¿¨µÈ
-uid	ÊÕ·ÑÔ±	Number	880099
-order_id	¶©µ¥¼ÇÂ¼ºÅ	String	20033
-empty_plot	¿ÕÏÐ³µÎ»Êý	Number	20
-in_channel_id	½ø³¡Í¨µÀ	String	A1
+	 * car_number	ï¿½ï¿½ï¿½ï¿½	String	ï¿½ï¿½GH0093
+in_time	ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½	Number	1490875218
+car_type	ï¿½ï¿½ï¿½ï¿½	String	Ð¡ï¿½Í³ï¿½
+c_type	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½Â¿ï¿½..ï¿½ï¿½	String	ï¿½ï¿½Í¨ï¿½ë³¡ï¿½ï¿½ï¿½Â¿ï¿½ï¿½ï¿½
+uid	ï¿½Õ·ï¿½Ô±	Number	880099
+order_id	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½	String	20033
+empty_plot	ï¿½ï¿½ï¿½Ð³ï¿½Î»ï¿½ï¿½	Number	20
+in_channel_id	ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½	String	A1
 
-·µ»Ø
-Ãû³Æ	ËµÃ÷	ÀàÐÍ	Ê¾Àý
-state	×´Ì¬ 	Numuber	0Ê§°Ü1³É¹¦
-errmsg	´íÎóÌáÊ¾	String	
+ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½	Ëµï¿½ï¿½	ï¿½ï¿½ï¿½ï¿½	Ê¾ï¿½ï¿½
+state	×´Ì¬ 	Numuber	0Ê§ï¿½ï¿½1ï¿½É¹ï¿½
+errmsg	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾	String	
 	 */
 	private String car_number;
 	private long in_time;
@@ -28,14 +28,21 @@ errmsg	´íÎóÌáÊ¾	String
 	private int empty_plot;
 	private String in_channel_id;
 	private String prepay;
-	//ÓÅ»ÝÈ¯ ½ð¶î»òÕß Ð¡Ê±ÕÛËãµÄ½ð¶î
+	private String prepay_cash;
+	//ï¿½Å»ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ð¡Ê±ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½
 	private String coupon;
 	private String coupon_type;
 	private String couponid;
-	//½áËã×´Ì¬£¬ÊÇ·ñËø¶¨
+	//ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
 	private boolean isLock;
 	
 	
+	public String getPrepay_cash() {
+		return prepay_cash;
+	}
+	public void setPrepay_cash(String prepay_cash) {
+		this.prepay_cash = prepay_cash;
+	}
 	public boolean isLock() {
 		return isLock;
 	}
@@ -119,7 +126,8 @@ errmsg	´íÎóÌáÊ¾	String
 	public String toString() {
 		return "CarInEntity [car_number=" + car_number + ", in_time=" + in_time + ", car_type=" + car_type + ", c_type="
 				+ c_type + ", uid=" + uid + ", order_id=" + order_id + ", empty_plot=" + empty_plot + ", in_channel_id="
-				+ in_channel_id + ", prepay=" + prepay + ", coupon=" + coupon + ", coupon_type=" + coupon_type + "]";
+				+ in_channel_id + ", prepay=" + prepay + ", prepay_cash=" + prepay_cash + ", coupon=" + coupon
+				+ ", coupon_type=" + coupon_type + ", couponid=" + couponid + ", isLock=" + isLock + "]";
 	}
 	
 	
