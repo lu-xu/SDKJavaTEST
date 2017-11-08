@@ -128,7 +128,7 @@ public class InterFaceParking extends InterfacePark {
 				String total = MainSDK.ed_total.getText();
 				if (total != null && !total.equals("")) {
 					double totalnow = new BigDecimal(Double.parseDouble(total) - Double.parseDouble(prepay))
-							.setScale(BigDecimal.ROUND_HALF_UP, 2).doubleValue();
+							.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 					if (totalnow <= 0)
 						totalnow = 0;
 					MainSDK.ed_total_now.setText(totalnow + "");
