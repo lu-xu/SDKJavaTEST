@@ -3,31 +3,11 @@ package _Test.bean;
 import java.io.Serializable;
 
 public class CarOutEntity implements Serializable{
-	/**
-	 * 名称	说明	类型	示例
-	 * service_name pay_status
-car_number	车牌	String	京GH0093
-in_time	进场时间	Number	1490875218
-out_time	出场时间	Number	1490879218
-uid	收费员	Number	880099
-duration	停车时长(分钟)	Number	50
-car_type	车型	String	小型车
-c_type	进场类型（月卡..）	String	普通入场或月卡等
-pay_type	支付类型	String	cash、wallet、kfcpay
-auth_code	授权码	String	微信或支付宝支付码
-empty_plot	空闲车位数	Number	20
-total	金额	String	6.5
-order_id	订单记录号	String	9009
-freereasons	免费原因	String	没有入场纪录
-out_channel_id	出场通道	String	B1
-in_channel_id	进场通道	String	A1
 
-返回
-名称	说明	类型	示例
-state	状态 	Numuber	0失败1成功
-pay_type	支付方式，现金或账户钱包，返回账户钱包时，不再收取停车费，泊链平台已经代收	String	cash或 wallet 或kfcpay(快付通聚合支付)
-errmsg	错误提示	String	
+	/**
+	 * 
 	 */
+	private static final long serialVersionUID = 1L;
 	private String service_name;
 	private String car_number;
 	private long in_time;
@@ -51,11 +31,19 @@ errmsg	错误提示	String
 	private String reduce_amount;
 	private String ticket_id;
 	private String electronic_pay;
-	private String electronic_prepay;//电子预付
-	private String cash_prepay;//现金预支付
+	private String electronic_prepay;//锟斤拷锟斤拷预锟斤拷
+	private String cash_prepay;//锟街斤拷预支锟斤拷
 	private String data_target;
+	
+	private String cash_pay;
 
 	
+	public String getCash_pay() {
+		return cash_pay;
+	}
+	public void setCash_pay(String cash_pay) {
+		this.cash_pay = cash_pay;
+	}
 	public String getCash_prepay() {
 		return cash_prepay;
 	}
@@ -212,7 +200,7 @@ errmsg	错误提示	String
 				+ auth_code + ", total=" + total + ", freereasons=" + freereasons + ", out_channel_id=" + out_channel_id
 				+ ", amount_receivable=" + amount_receivable + ", reduce_amount=" + reduce_amount + ", ticket_id="
 				+ ticket_id + ", electronic_pay=" + electronic_pay + ", electronic_prepay=" + electronic_prepay
-				+ ", cash_prepay=" + cash_prepay + ", data_target=" + data_target + "]";
+				+ ", cash_prepay=" + cash_prepay + ", data_target=" + data_target + ", cash_pay=" + cash_pay + "]";
 	}
 	
 	

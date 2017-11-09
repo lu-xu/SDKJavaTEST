@@ -44,6 +44,8 @@ import net.sf.json.JSONObject;
 import sdk.UploadUtil;
 import sqlite.SqliteJDBC;
 import util.FileUtil;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class MainSDK {
 	// 200002 21776 EA2D90FEEF1E9F8E D8G5M0U488B4A7ZD
@@ -56,11 +58,6 @@ public class MainSDK {
 	// public static final String CK = "9H3YD5U5T73GITSP";
 	// public static final String UK= "EA2D90FEEF1E9F8E";
 
-	// public static final String PARK_ID = "21787";
-	// public static final String U_ID = "200159";
-	// public static final String CK = "LDGFFLEWS4WE67US";
-	// public static final String UK= "C160955B1479621F";
-
 	// public static final String PARK_ID = "KJ10001";
 	// public static final String U_ID = "200191";
 	// public static final String CK = "WERRTTTTYY";
@@ -71,10 +68,16 @@ public class MainSDK {
 	// public static final String CK = "X34KICEDPDOVXMCW";
 	// public static final String UK= "AB4B3DEEC7AEA20D";
 
-	public static final String PARK_ID = "21782";
-	public static final String U_ID = "200160";
-	public static final String CK = "WERRTTTTYY";
-	public static final String UK = "8A9957DB72608427";
+	// 缴费机正式平台
+	public static final String PARK_ID = "21787";
+	public static final String U_ID = "200159";
+	public static final String CK = "LDGFFLEWS4WE67US";
+	public static final String UK = "C160955B1479621F";
+	// 缴费机beta平台
+	// public static final String PARK_ID = "21782";
+	// public static final String U_ID = "200160";
+	// public static final String CK = "WERRTTTTYY";
+	// public static final String UK = "8A9957DB72608427";
 
 	// API初始化信息修改
 	String msg = "{\"union_id\":\"200208\"," + "\"ukey\":\"8403A41ED5EF20BC\"," + "\"park_id\":\"21835\","
@@ -97,10 +100,10 @@ public class MainSDK {
 
 	public static final int LOG_SHOW = 1;
 	public static final int PORT = 6789;
-	// public static final String CLOUD_ADDR = "yun.bolink.club";
-	// public static final String BOLINK_ADDR = "s.bolink.club";
-	public static final String CLOUD_ADDR = "test.bolink.club";
-	public static final String BOLINK_ADDR = "beta.bolink.club";
+	public static final String CLOUD_ADDR = "yun.bolink.club";
+	public static final String BOLINK_ADDR = "s.bolink.club";
+	// public static final String CLOUD_ADDR = "test.bolink.club";
+	// public static final String BOLINK_ADDR = "beta.bolink.club";
 
 	private static JFrame frame;
 	private JTextField ed_carnumber;
@@ -442,6 +445,7 @@ public class MainSDK {
 				// outentity.setAuth_code(ed_scan.getText());
 				// outentity.setPay_type("kfcpay");
 				// outentity.setFreereasons("15分钟内免费");
+				outentity.setCash_pay(ed_total_now.getText());
 				carOut = outentity;
 				try {
 					String msg = JSONObject.fromObject(outentity).toString();
@@ -1199,35 +1203,6 @@ public class MainSDK {
 		txteztthbbzhogf.setText(CK);
 		txtBengxiakalaka.setText(LOCAL_ID);
 
-		textField_4 = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField_4, 34, SpringLayout.SOUTH, button_1);
-		springLayout.putConstraint(SpringLayout.WEST, textField_4, 31, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, textField_4, 195, SpringLayout.SOUTH, button_1);
-		springLayout.putConstraint(SpringLayout.EAST, textField_4, 1, SpringLayout.EAST, ed_uid_out);
-		frame.getContentPane().add(textField_4);
-		textField_4.setColumns(10);
-
-		JButton btnNewButton_8 = new JButton("send");
-		btnNewButton_8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String msg = textField_4.getText();
-				// String msg = "{\"union_id\":\"" + textField.getText() +
-				// "\",\"ukey\":\"" + txtEadfeefefe.getText()
-				// + "\",\"park_id\":\"" + textField_1.getText() +
-				// "\",\"bport\":6789,\"cport\":6789,\"ckey\":\""
-				// + txteztthbbzhogf.getText()
-				// +
-				// "\",\"cloud_addr\":\"test.bolink.club\",\"bolink_addr\":\"beta.bolink.club\",\"local_id\":\""
-				// + txtBengxiakalaka.getText() + "\",\"log_show\":1}";
-				System.out.println("send发送数据>>>>>>>>>>>>>>>>>>>>>" + msg);
-				String state = UploadUtil.uploadData(msg);
-				System.out.println("send返回数据>>>>>>>>>>>>>>>>>>>>>" + state);
-			}
-		});
-		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton_8, 38, SpringLayout.SOUTH, btnNewButton);
-		springLayout.putConstraint(SpringLayout.WEST, btnNewButton_8, 80, SpringLayout.EAST, textField_4);
-		frame.getContentPane().add(btnNewButton_8);
-
 		edit_prepaycash = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, edit_prepaycash, 6, SpringLayout.SOUTH, btnNewButton_5);
 		springLayout.putConstraint(SpringLayout.WEST, edit_prepaycash, 0, SpringLayout.WEST, edit_prepay);
@@ -1251,6 +1226,37 @@ public class MainSDK {
 		springLayout.putConstraint(SpringLayout.WEST, btn_uninit, 0, SpringLayout.WEST, textField);
 		springLayout.putConstraint(SpringLayout.SOUTH, btn_uninit, 0, SpringLayout.SOUTH, ed_emptyPlot);
 		frame.getContentPane().add(btn_uninit);
+
+		JScrollPane scrollPane = new JScrollPane();
+		springLayout.putConstraint(SpringLayout.NORTH, scrollPane, 11, SpringLayout.SOUTH, button_1);
+		springLayout.putConstraint(SpringLayout.WEST, scrollPane, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, scrollPane, -27, SpringLayout.NORTH, ed_scan);
+		springLayout.putConstraint(SpringLayout.EAST, scrollPane, 244, SpringLayout.EAST, label_1);
+		frame.getContentPane().add(scrollPane);
+
+		JTextArea textArea = new JTextArea();
+		scrollPane.setViewportView(textArea);
+
+		JButton btnNewButton_8 = new JButton("send");
+		springLayout.putConstraint(SpringLayout.WEST, btnNewButton_8, 319, SpringLayout.WEST, frame.getContentPane());
+		btnNewButton_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String msg = textArea.getText();
+				// String msg = "{\"union_id\":\"" + textField.getText() +
+				// "\",\"ukey\":\"" + txtEadfeefefe.getText()
+				// + "\",\"park_id\":\"" + textField_1.getText() +
+				// "\",\"bport\":6789,\"cport\":6789,\"ckey\":\""
+				// + txteztthbbzhogf.getText()
+				// +
+				// "\",\"cloud_addr\":\"test.bolink.club\",\"bolink_addr\":\"beta.bolink.club\",\"local_id\":\""
+				// + txtBengxiakalaka.getText() + "\",\"log_show\":1}";
+				System.out.println("send发送数据>>>>>>>>>>>>>>>>>>>>>" + msg);
+				String state = UploadUtil.uploadData(msg);
+				System.out.println("send返回数据>>>>>>>>>>>>>>>>>>>>>" + state);
+			}
+		});
+		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton_8, 38, SpringLayout.SOUTH, btnNewButton);
+		frame.getContentPane().add(btnNewButton_8);
 	}
 
 	int count = 0;
@@ -1272,7 +1278,6 @@ public class MainSDK {
 	public static JTextField edit_prepaycash;// 预付
 	private JTextField ed_uid_out;
 	public static JTextField ed_total_now;
-	private JTextField textField_4;
 
 	private String getMsg(String msg) {
 		JSONObject jsonInit = JSONObject.fromObject(msg);
