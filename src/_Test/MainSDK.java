@@ -667,6 +667,8 @@ public class MainSDK {
 				outentity.setTicket_id(ticket_id.getText());
 				outentity.setElectronic_prepay(edit_prepay.getText());
 				outentity.setCash_prepay(edit_prepaycash.getText());
+				
+				outentity.setElectronic_pay(ed_total_now.getText());
 				// outentity.setAmount_receivable(
 				// new
 				// BigDecimal(FileUtil.calPrice(Str2Unix(ed_outtime.getText()) -
