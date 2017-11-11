@@ -3,22 +3,11 @@ package _Test.bean;
 import java.io.Serializable;
 
 public class CarInEntity implements Serializable{
+
 	/**
 	 * 
-	 * car_number	����	String	��GH0093
-in_time	����ʱ��	Number	1490875218
-car_type	����	String	С�ͳ�
-c_type	�������ͣ��¿�..��	String	��ͨ�볡���¿���
-uid	�շ�Ա	Number	880099
-order_id	������¼��	String	20033
-empty_plot	���г�λ��	Number	20
-in_channel_id	����ͨ��	String	A1
-
-����
-����	˵��	����	ʾ��
-state	״̬ 	Numuber	0ʧ��1�ɹ�
-errmsg	������ʾ	String	
 	 */
+	private static final long serialVersionUID = 1L;
 	private String car_number;
 	private long in_time;
 	private String car_type;

@@ -169,7 +169,6 @@ public class MainSDK {
 	}
 
 	public static int selectionIndex = -1;
-	public static String EditTotal;
 	public static String Edityouhui;
 	static ListModel jListModel; // 数据模型
 	String[] strArr = new String[] {};
@@ -493,6 +492,8 @@ public class MainSDK {
 					ticket_id.setText(entity.getCouponid());
 					edit_prepay.setText(entity.getPrepay());
 					edit_prepaycash.setText(entity.getPrepay_cash());
+					
+					
 					Long timespan = System.currentTimeMillis() / 1000 - entity.getIn_time();
 					double total = FileUtil.calPrice(timespan);// 本地计算的总价格
 					ed_total.setText(new BigDecimal(total).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "");
@@ -517,7 +518,7 @@ public class MainSDK {
 
 					BigDecimal b = new BigDecimal(total).setScale(2, BigDecimal.ROUND_HALF_UP);
 					ed_total_now.setText(b + "");
-					EditTotal = ed_total.getText();
+					
 					boolean isContain = false;
 					int index = 0;
 					if (payStateList != null && payStateList.size() > 0) {

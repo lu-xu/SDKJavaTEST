@@ -22,7 +22,7 @@ public class SqliteJDBC {
 			String sql = "CREATE TABLE INPARKORDER" + "(" + "car_number TEXT," + "in_time LONG," + "car_type TEXT,"
 					+ "c_type TEXT," + "uid TEXT," + "order_id TEXT," + "empty_plot INT," + "in_channel_id INT,"
 					+ "worksite_id INT," + "remark TEXT" + ",elc_prepay TEXT"+ ",cash_prepay TEXT"+",coupon TEXT,coupon_type TEXT,couponid TEXT"+")";
-			System.out.println("����sql��" + sql);
+//			System.out.println("����sql��" + sql);
 			sm.executeUpdate(sql);
 			sm.close();
 			c.close();

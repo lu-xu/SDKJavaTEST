@@ -31,7 +31,7 @@ public class InterFaceParking extends InterfacePark {
 		String trade_no;
 		int operate_type;
 
-		CarInEntity entity;
+		CarInEntity entity = null;
 		switch (service_name) {
 		case "outpark":
 			// {"service_name":"outpark","pay_type":"sweepcode","state":1,"errmsg":"支付成功","trade_no":"kftweixinprepay20010320170725111512897",
@@ -104,6 +104,7 @@ public class InterFaceParking extends InterfacePark {
 			for (int i = 0; i < MainSDK.carInList.size(); i++) {
 				if (MainSDK.carInList.get(i).getOrder_id().equals(orderid)) {
 					querry = true;
+					entity = MainSDK.carInList.get(i);
 					if (prepay_type == 1) {
 						// 1电子预支付
 						MainSDK.carInList.get(i).setPrepay(prepay);
@@ -130,14 +131,14 @@ public class InterFaceParking extends InterfacePark {
 					SqliteJDBC.Update("cash_prepay", prepay, orderid);
 					MainSDK.edit_prepaycash.setText(prepay);
 				}
+
 				String total = MainSDK.ed_total.getText();
-				if (total != null && !total.equals("")) {
-					double totalnow = new BigDecimal(Double.parseDouble(total) - Double.parseDouble(prepay))
-							.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-					if (totalnow <= 0)
-						totalnow = 0;
-					MainSDK.ed_total_now.setText(totalnow + "");
-				}
+				// 减去优惠券的金额
+				total = FileUtil.DoubleCalculate(total, entity.getCoupon(), 1) + "";
+				// 减去预付
+				double totalnow = FileUtil.DoubleCalculate(total, prepay, 0);
+
+				MainSDK.ed_total_now.setText(totalnow + "");
 
 			} else {
 				state = 0;
@@ -147,42 +148,40 @@ public class InterFaceParking extends InterfacePark {
 					+ "\",\"state\":" + state + ",\"park_id\":\"" + parkid + "\",\"order_id\":\"" + orderid
 					+ "\",\"prepay\":\"" + prepay + "\",\"query_time\":" + System.currentTimeMillis() / 100 + "}";
 			UploadData(back);
-
 			break;
 		case "query_price":
+
 			String order_id;
 			if (msg.contains("order_id")) {
 				order_id = object.getString("order_id");
 			} else {
 				order_id = "";
 			}
-
+			// price是返回数据的total 订单金额
 			double price = 0;
-
 			long duration = 0;
+			// total是返回数据的price 当前价格/实时价格
 			double Total = 0;
 			double derate_duration = 0;
 			for (int i = 0; i < MainSDK.carInList.size(); i++) {
 				if (MainSDK.carInList.get(i).getOrder_id().equals(order_id)) {
 					querry = true;
+					// 计算当前的停车价格
 					long intime = MainSDK.carInList.get(i).getIn_time();
 					duration = System.currentTimeMillis() / 1000 - intime;
-					price = new BigDecimal(FileUtil.calPrice(duration)).setScale(2, BigDecimal.ROUND_HALF_UP)
-							.doubleValue();
+					// price = new
+					// BigDecimal(FileUtil.calPrice(duration)).setScale(2,
+					// BigDecimal.ROUND_HALF_UP)
+					// .doubleValue();
+					price = FileUtil.doubleFormat(FileUtil.calPrice(duration));
+
 					Total = price;
+
 					// 先减掉预付
 					String prepaystr_elc = SqliteJDBC.Querry("order_id", order_id, "elc_prepay");
 					String prepaystr_cash = SqliteJDBC.Querry("order_id", order_id, "cash_prepay");
-					// String prepaystr =
-					// MainSDK.edit_prepay.getText().equals("")?"0":MainSDK.edit_prepay.getText();
-					if (prepaystr_elc != null && !order_id.equals("")) {
-						double prepays = Double.parseDouble(prepaystr_elc);
-						Total = Total - prepays;
-					}
-					if (prepaystr_cash != null && !order_id.equals("")) {
-						double prepays = Double.parseDouble(prepaystr_cash);
-						Total = Total - prepays;
-					}
+					Total = FileUtil.DoubleCalculate(Total, prepaystr_elc, 0);
+					Total = FileUtil.DoubleCalculate(Total, prepaystr_cash, 0);
 
 					// 再减掉优惠券
 					String coupon_type = MainSDK.carInList.get(i).getCoupon_type();
@@ -196,15 +195,8 @@ public class InterFaceParking extends InterfacePark {
 							// derate_money = "";
 						}
 						derate_money = Double.parseDouble(coupon);
-						double conponed = price - Double.parseDouble(coupon);
-						if (conponed < 0) {
-							Total = 0;
-						} else {
-							Total = new BigDecimal(conponed).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-						}
 					}
-					Total = new BigDecimal(Total).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-
+					Total = FileUtil.DoubleCalculate(Total, coupon, 0);
 					break;
 				} else if (MainSDK.selectionIndex >= MainSDK.carInList.size()) {
 					querry = false;
@@ -212,25 +204,19 @@ public class InterFaceParking extends InterfacePark {
 				} else if (MainSDK.selectionIndex < MainSDK.carInList.size() && MainSDK.selectionIndex >= 0
 						&& msg.contains("out_channel_id") && object.getString("out_channel_id")
 								.equals(MainSDK.carInList.get(MainSDK.selectionIndex).getIn_channel_id())) {
+					// 通过通道号直接出场，出场直接付
 					CarInEntity entityin = MainSDK.carInList.get(MainSDK.selectionIndex);
 					order_id = entityin.getOrder_id();
 					querry = true;
 					duration = System.currentTimeMillis() / 1000 - entityin.getIn_time();
-					price = Double.parseDouble(MainSDK.EditTotal);
+					price = Double.parseDouble(MainSDK.ed_total.getText());
 
 					Total = price;
 					// 先减掉预付
-					String prepaystr = MainSDK.edit_prepay.getText().equals("") ? "0" : MainSDK.edit_prepay.getText();
-					String prepaystr_cash = MainSDK.edit_prepaycash.getText().equals("") ? "0"
-							: MainSDK.edit_prepaycash.getText();
-					if (prepaystr != null && !order_id.equals("")) {
-						double prepays = Double.parseDouble(prepaystr);
-						Total = Total - prepays;
-					}
-					if (prepaystr_cash != null && !order_id.equals("")) {
-						double prepays = Double.parseDouble(prepaystr_cash);
-						Total = Total - prepays;
-					}
+					String prepaystr = MainSDK.edit_prepay.getText();
+					String prepaystr_cash = MainSDK.edit_prepaycash.getText();
+					Total = FileUtil.DoubleCalculate(Total, prepaystr, 0);
+					Total = FileUtil.DoubleCalculate(Total, prepaystr_cash, 0);
 
 					// 再减掉优惠券
 					String coupon_type = MainSDK.carInList.get(i).getCoupon_type();
@@ -241,17 +227,10 @@ public class InterFaceParking extends InterfacePark {
 							derate_duration = 0;
 						} else {
 							derate_duration = Double.parseDouble(coupon) * 100 / 60;
-							// derate_money = "";
 						}
 						derate_money = Double.parseDouble(coupon);
-						double conponed = price - Double.parseDouble(coupon);
-						if (conponed < 0) {
-							Total = 0;
-						} else {
-							Total = new BigDecimal(conponed).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-						}
 					}
-					Total = new BigDecimal(Total).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+					Total = FileUtil.DoubleCalculate(Total, coupon, 0);
 					break;
 				} else {
 					querry = false;
@@ -307,19 +286,18 @@ public class InterFaceParking extends InterfacePark {
 				}
 			}
 			if (querry) {
-				derate_money = 0;// 回传给sdk的优惠券金额
-				// CarInEntity entity = MainSDK.carInList.get(index);
+				// 回传给sdk的优惠券金额
 				if (ticket_type == 0 || ticket_type == 2) {
 					// 减免停车金额
 					derate_money = object.getDouble("money");
 				} else {
-					// 减免停车时长 小时为单位，计算价格传入3600秒
+					// 减免停车时长 小时为单位，计算价格传入3600秒，为1小时对应的金额
 					derate_money = Double.parseDouble(object.getString("duration")) * FileUtil.calPrice(3600);
 					// MainSDK.ticket_id.setText(object.getString("duration"));
 				}
-				double decrate = new BigDecimal(derate_money).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-				double totalnow = new BigDecimal(Double.parseDouble(MainSDK.ed_total_now.getText()) - decrate)
-						.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+				double decrate = FileUtil.doubleFormat(derate_money);
+				//当前金额再减优惠金额
+				double totalnow = FileUtil.DoubleCalculate(MainSDK.ed_total_now.getText(), decrate, 0);
 				// 优惠金额那一栏填写
 				MainSDK.edit_decrate_money.setText(decrate + "");
 				// 使用了优惠券后的当前金额
