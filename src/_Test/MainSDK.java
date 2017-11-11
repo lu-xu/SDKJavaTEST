@@ -69,15 +69,15 @@ public class MainSDK {
 	// public static final String UK= "AB4B3DEEC7AEA20D";
 
 	// 缴费机正式平台
-	public static final String PARK_ID = "21787";
-	public static final String U_ID = "200159";
-	public static final String CK = "LDGFFLEWS4WE67US";
-	public static final String UK = "C160955B1479621F";
+//	public static final String PARK_ID = "21787";
+//	public static final String U_ID = "200159";
+//	public static final String CK = "LDGFFLEWS4WE67US";
+//	public static final String UK = "C160955B1479621F";
 	// 缴费机beta平台
-	// public static final String PARK_ID = "21782";
-	// public static final String U_ID = "200160";
-	// public static final String CK = "WERRTTTTYY";
-	// public static final String UK = "8A9957DB72608427";
+	 public static final String PARK_ID = "21782";
+	 public static final String U_ID = "200160";
+	 public static final String CK = "WERRTTTTYY";
+	 public static final String UK = "8A9957DB72608427";
 
 	// API初始化信息修改
 	String msg = "{\"union_id\":\"200208\"," + "\"ukey\":\"8403A41ED5EF20BC\"," + "\"park_id\":\"21835\","
@@ -100,10 +100,10 @@ public class MainSDK {
 
 	public static final int LOG_SHOW = 1;
 	public static final int PORT = 6789;
-	public static final String CLOUD_ADDR = "yun.bolink.club";
-	public static final String BOLINK_ADDR = "s.bolink.club";
-	// public static final String CLOUD_ADDR = "test.bolink.club";
-	// public static final String BOLINK_ADDR = "beta.bolink.club";
+//	public static final String CLOUD_ADDR = "yun.bolink.club";
+//	public static final String BOLINK_ADDR = "s.bolink.club";
+	 public static final String CLOUD_ADDR = "test.bolink.club";
+	 public static final String BOLINK_ADDR = "beta.bolink.club";
 
 	private static JFrame frame;
 	private JTextField ed_carnumber;
@@ -667,7 +667,7 @@ public class MainSDK {
 				outentity.setTicket_id(ticket_id.getText());
 				outentity.setElectronic_prepay(edit_prepay.getText());
 				outentity.setCash_prepay(edit_prepaycash.getText());
-				
+
 				outentity.setElectronic_pay(ed_total_now.getText());
 				// outentity.setAmount_receivable(
 				// new
@@ -1030,17 +1030,15 @@ public class MainSDK {
 				Long ntime = System.currentTimeMillis() / 1000;
 				String msg = "{\"service_name\":\"work_record\"," + "\"data_target\":\"cloud\"," + "\"user_id\":\""
 						+ textField_2.getText() + "\"," + "\"start_time\":" + ntime + "," + "\"uuid\":\""
-						+ Math.random() + "\","
-				// + "\"end_time\":"+ntime+","
-				// + "\"worksite_id\":21,"
-						+ "\"state\":0}";
+						+ textField_3.getText() + "\","
+				// + "\"end_time\":"+(ntime+3600)+","
+						+ "\"worksite_id\":" + Integer.parseInt(textField_4.getText()) + "," + "\"state\":0}";
 
 				long intime = System.currentTimeMillis();
 				System.out.println("请求数据上班>>>>>>>>>>>>>>>>>>>>>" + msg);
 				String state = UploadUtil.uploadData(msg);
 				long intimeback = System.currentTimeMillis();
 				System.out.println("请求数据上班返回>>>>>>>>>>>>>>>>>>>>>" + state);
-				System.out.println("上班时间间隔" + (intimeback - intime));
 
 				// System.out.println("返回数据>>>>>>>>>>>>>>>>>>>>>"+result);
 				HashMap<String, Integer> map = new HashMap<>();
@@ -1060,18 +1058,24 @@ public class MainSDK {
 				 */
 				// 上传下班记录
 				Long ntime = System.currentTimeMillis() / 1000;
+				// String msg = "{\"service_name\":\"work_record\"," +
+				// "\"data_target\":\"cloud\"," + "\"user_id\":\""
+				// + textField_2.getText() + "\","
+				// // + "\"start_time\":"+ntime+","
+				// + "\"uuid\":\"" + Math.random() + "\"," + "\"end_time\":" +
+				// ntime + ","
+				// // + "\"worksite_id\":21,"
+				// + "\"state\":1}";
 				String msg = "{\"service_name\":\"work_record\"," + "\"data_target\":\"cloud\"," + "\"user_id\":\""
-						+ textField_2.getText() + "\","
-				// + "\"start_time\":"+ntime+","
-						+ "\"uuid\":\"" + Math.random() + "\"," + "\"end_time\":" + ntime + ","
-				// + "\"worksite_id\":21,"
-						+ "\"state\":1}";
+						+ textField_2.getText() + "\"," + "\"uuid\":\"" + textField_3.getText() + "\","
+						+ "\"end_time\":" + ntime + "," + "\"worksite_id\":" + Integer.parseInt(textField_4.getText())
+						+ "," + "\"state\":1}";
 				long intime = System.currentTimeMillis();
 				System.out.println("请求数据下班>>>>>>>>>>>>>>>>>>>>>" + msg);
 				String state = UploadUtil.uploadData(msg);
 				long intimeback = System.currentTimeMillis();
 				System.out.println("请求数据下班返回>>>>>>>>>>>>>>>>>>>>>" + state);
-				System.out.println("下班时间间隔" + (intimeback - intime));
+				// System.out.println("下班时间间隔" + (intimeback - intime));
 				// System.out.println("返回数据>>>>>>>>>>>>>>>>>>>>>"+result);
 
 			}
@@ -1259,6 +1263,18 @@ public class MainSDK {
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnNewButton_8, 38, SpringLayout.SOUTH, btnNewButton);
 		frame.getContentPane().add(btnNewButton_8);
+
+		textField_3 = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textField_3, 0, SpringLayout.NORTH, lblNewLabel_1);
+		springLayout.putConstraint(SpringLayout.WEST, textField_3, 15, SpringLayout.EAST, textField_2);
+		frame.getContentPane().add(textField_3);
+		textField_3.setColumns(10);
+
+		textField_4 = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, textField_4, 0, SpringLayout.NORTH, lblNewLabel_1);
+		springLayout.putConstraint(SpringLayout.WEST, textField_4, 6, SpringLayout.EAST, textField_3);
+		frame.getContentPane().add(textField_4);
+		textField_4.setColumns(10);
 	}
 
 	int count = 0;
@@ -1280,6 +1296,8 @@ public class MainSDK {
 	public static JTextField edit_prepaycash;// 预付
 	private JTextField ed_uid_out;
 	public static JTextField ed_total_now;
+	private JTextField textField_3;
+	private JTextField textField_4;
 
 	private String getMsg(String msg) {
 		JSONObject jsonInit = JSONObject.fromObject(msg);
