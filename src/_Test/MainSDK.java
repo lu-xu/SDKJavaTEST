@@ -178,7 +178,7 @@ public class MainSDK {
 	private static List<CarOutEntity> carOutList = new ArrayList<CarOutEntity>();
 	private static List<PayState> payStateList = new ArrayList<PayState>();
 	private JTextField ed_scan;
-	JLabel lblNewLabel_2;
+//	JLabel lblNewLabel_2;
 
 	/**
 	 * Initialize the contents of the frame.
@@ -302,7 +302,7 @@ public class MainSDK {
 				System.out.println("发送进场：" + msg);
 				String state = UploadUtil.uploadInParkOrder(msg);
 				System.out.println("进场SDK同步返回：" + state);
-				lblNewLabel_2.setText(state);
+//				lblNewLabel_2.setText(state);
 				if (carInList != null && carInList.size() > 0) {
 					String[] arr = new String[carInList.size()];
 					for (int i = 0; i < carInList.size(); i++) {
@@ -454,7 +454,7 @@ public class MainSDK {
 					lblNewLabel.setText(msg);
 					String state = UploadUtil.uploadOutParkOrder(msg);
 					System.out.println("点击出场同步:" + state);
-					lblNewLabel_2.setText(state);
+//					lblNewLabel_2.setText(state);
 
 					if (getState(state) == 1) {
 						SqliteJDBC.Delete(carOut.getOrder_id());
@@ -599,10 +599,10 @@ public class MainSDK {
 		frame.getContentPane().add(ed_scan);
 		ed_scan.setColumns(10);
 
-		lblNewLabel_2 = new JLabel("");
-		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2, 38, SpringLayout.EAST, ed_scan);
-		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, 0, SpringLayout.SOUTH, ed_scan);
-		frame.getContentPane().add(lblNewLabel_2);
+//		lblNewLabel_2 = new JLabel("");
+//		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2, 38, SpringLayout.EAST, ed_scan);
+//		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, 0, SpringLayout.SOUTH, ed_scan);
+//		frame.getContentPane().add(lblNewLabel_2);
 
 		JButton btnNewButton = new JButton("扫码出场");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -697,7 +697,7 @@ public class MainSDK {
 								lblNewLabel.setText(msg);
 								String state = UploadUtil.uploadOutParkOrder(msg);
 								System.out.println("点击出场:" + state);
-								lblNewLabel_2.setText(state);
+//								lblNewLabel_2.setText(state);
 								if (getState(state) == 1) {
 									SqliteJDBC.Delete(carOut.getOrder_id());
 									// ShowDialog(ed_carnumber_out.getText() +
@@ -942,7 +942,7 @@ public class MainSDK {
 					lblNewLabel.setText(msg);
 					String state = UploadUtil.uploadOutParkOrder(msg);
 					System.out.println("点击出场:" + state);
-					lblNewLabel_2.setText(state);
+//					lblNewLabel_2.setText(state);
 
 					if (getState(state) == 1) {
 						SqliteJDBC.Delete(carOut.getOrder_id());
@@ -1002,7 +1002,7 @@ public class MainSDK {
 					lblNewLabel.setText(msg);
 					String state = UploadUtil.uploadOutParkOrder(msg);
 					System.out.println("点击出场:" + state);
-					lblNewLabel_2.setText(state);
+//					lblNewLabel_2.setText(state);
 
 					if (getState(state) == 1) {
 						SqliteJDBC.Delete(carOut.getOrder_id());
@@ -1174,11 +1174,11 @@ public class MainSDK {
 							SqliteJDBC.Delete(carOut.getOrder_id());
 							System.out.println("扫码付结果：" + state + "出场成功！");
 							// ShowDialog(ed_carnumber_out.getText() + "出场成功！");
-							lblNewLabel_2.setText(ed_carnumber_out.getText() + "出场成功！扫码支付" + ed_total.getText() + "元");
+//							lblNewLabel_2.setText(ed_carnumber_out.getText() + "出场成功！扫码支付" + ed_total.getText() + "元");
 						} else {
 							System.out.println("扫码付结果：" + state + "出场失败！");
 							// ShowDialog(ed_carnumber_out.getText() + "出场失败！");
-							lblNewLabel_2.setText(ed_carnumber_out.getText() + "出场失败！");
+//							lblNewLabel_2.setText(ed_carnumber_out.getText() + "出场失败！");
 						}
 						clearOrder();
 					}
