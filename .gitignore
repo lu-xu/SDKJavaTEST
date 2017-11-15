@@ -4,4 +4,4 @@
 #bin/
 logs/
 *.db
-/bin/
+bin/

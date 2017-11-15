@@ -1,5 +1,8 @@
 package sdk;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -19,13 +22,15 @@ public class UploadUtil {
 	// "http://192.168.199.122/bpd/download.do";
 
 	// beta地址
-//	public static final String URL = "http://beta.bolink.club/unionapi/upload.do";
-//	public static final String URL_INTETAL = "http://beta.bolink.club/unionapi/download.do";
+	// public static final String URL =
+	// "http://beta.bolink.club/unionapi/upload.do";
+	// public static final String URL_INTETAL =
+	// "http://beta.bolink.club/unionapi/download.do";
 	public static final String URL = "http://120.25.207.105/bpd/upload.do";
 	public static final String URL_INTETAL = "http://120.25.207.105/bpd/download.do";
-	                                     
+
 	// 姚经理地址
-	// public static final String URL = "http://192.168.199.122/bpd/upload.do";	
+	// public static final String URL = "http://192.168.199.122/bpd/upload.do";
 	// public static final String URL_INTETAL =
 	// "http://192.168.199.122/bpd/download.do";
 
@@ -33,6 +38,8 @@ public class UploadUtil {
 	public static String token;
 	public static String ukey;
 	public static String park_id;
+
+	public static List<CarBalance> balanceList = new ArrayList<CarBalance>();
 
 	/**
 	 * @brief 初始化停车场SDK，必须在调用下面的方法之前调用。
@@ -114,9 +121,30 @@ public class UploadUtil {
 	 * @return 车辆订单状态信息结果的Json格式字符串(使用完须释放空间)
 	 */
 	public static String getPayStatus(String strJsonData) {
-		System.out.println("get order state:" + strJsonData);
-
-		return UploadUtilNative.jni_GetPayStatus(strJsonData);
+		CarBalanceResult result = new CarBalanceResult();
+		JsonObject o = new JsonParser().parse(strJsonData).getAsJsonObject();
+		// {"balance":"0","car_number":"晋AAAQAZ","errmsg":"","is_exist":0,"net_status":1,
+		// "order_id":"1494230327","service_name":"pay_status","state":1}
+		String car_number = o.get("car_number").getAsString();
+		result.setBalance("0");
+		result.setState(0);
+		result.setIs_exist(0);
+		if(balanceList.size()>0){
+			for(CarBalance c:balanceList){
+				if(car_number.equals(c.getCar_number())){
+					result.setBalance(c.getBalance());
+					result.setState(1);
+					result.setIs_exist(1);
+				}
+			}
+		}
+		result.setCar_number(car_number);
+		result.setErrmsg("API 返回的查询余额结果");
+		result.setNet_status(1);
+		result.setOrder_id(o.get("order_id").getAsString());
+		result.setService_name("service_name");
+		return new Gson().toJson(result);
+//		return UploadUtilNative.jni_GetPayStatus(strJsonData);
 	}
 
 	/**
@@ -136,7 +164,24 @@ public class UploadUtil {
 				while (true) {
 					String result = RequetDataInteval();
 					if (result != null && result.contains("service_name")) {
-						interfacePark.receive(result);
+						//如果是更新余额，就在这里处理放入缓存list，getPayStatus的时候返回
+						if (result.contains("update_balance")) {
+							CarBalance carBalance = new Gson().fromJson(result, CarBalance.class);
+							if (balanceList.size() > 0) {
+								for (int i = 0; i < balanceList.size(); i++) {
+									CarBalance b = balanceList.get(i);
+									if (b.getCar_number().equals(carBalance.getCar_number())) {
+										// 如果车牌号相同，则更新余额
+										balanceList.set(i, carBalance);
+									}
+								}
+							} else {
+								balanceList.add(carBalance);
+							}
+						} else {
+							interfacePark.receive(result);
+						}
+
 					}
 					System.out.println("一次查询结束");
 				}
@@ -197,8 +242,8 @@ public class UploadUtil {
 			QueryPriceData data = new QueryPriceData();
 			data.setData_target(o.get("data_target").getAsString());
 			if (o.has("errmsg")) {
-				System.out.println(">>"+o.get("errmsg")+"<<");
-				String errmsg = ""+o.get("errmsg");
+				System.out.println(">>" + o.get("errmsg") + "<<");
+				String errmsg = "" + o.get("errmsg");
 				if (!errmsg.equals("null"))
 					data.setErrmsg(o.get("errmsg").getAsString());
 				else
@@ -239,7 +284,7 @@ public class UploadUtil {
 			data.setTrade_no(o.get("trade_no").getAsString());
 			data.setOrder_id(o.get("order_id").getAsString());
 			data.setErrmsg("收到出场直付支付结果");
-		
+
 			System.out.println("upload outpark:" + data.toString());
 
 			return RequetData(service_name, data);

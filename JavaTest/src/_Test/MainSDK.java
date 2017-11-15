@@ -53,10 +53,10 @@ public class MainSDK {
 	// 21779，ck: Q0RX0PQOF6ZXD4TO 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
 	// 3251，ck: 9H3YD5U5T73GITSP 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
 
-	// public static final String PARK_ID = "3251";
-	// public static final String U_ID = "200002";
-	// public static final String CK = "9H3YD5U5T73GITSP";
-	// public static final String UK= "EA2D90FEEF1E9F8E";
+//	 public static final String PARK_ID = "3251";
+//	 public static final String U_ID = "200002";
+//	 public static final String CK = "9H3YD5U5T73GITSP";
+//	 public static final String UK= "EA2D90FEEF1E9F8E";
 
 	// public static final String PARK_ID = "KJ10001";
 	// public static final String U_ID = "200191";
@@ -69,15 +69,15 @@ public class MainSDK {
 	// public static final String UK= "AB4B3DEEC7AEA20D";
 
 	// 缴费机正式平台
-//	public static final String PARK_ID = "21787";
-//	public static final String U_ID = "200159";
-//	public static final String CK = "LDGFFLEWS4WE67US";
-//	public static final String UK = "C160955B1479621F";
+	public static final String PARK_ID = "21787";
+	public static final String U_ID = "200159";
+	public static final String CK = "LDGFFLEWS4WE67US";
+	public static final String UK = "C160955B1479621F";
 	// 缴费机beta平台
-	 public static final String PARK_ID = "21782";
-	 public static final String U_ID = "200160";
-	 public static final String CK = "WERRTTTTYY";
-	 public static final String UK = "8A9957DB72608427";
+//	 public static final String PARK_ID = "21782";
+//	 public static final String U_ID = "200160";
+//	 public static final String CK = "WERRTTTTYY";
+//	 public static final String UK = "8A9957DB72608427";
 
 	// API初始化信息修改
 	String msg = "{\"union_id\":\"200208\"," + "\"ukey\":\"8403A41ED5EF20BC\"," + "\"park_id\":\"21835\","
@@ -100,10 +100,10 @@ public class MainSDK {
 
 	public static final int LOG_SHOW = 1;
 	public static final int PORT = 6789;
-//	public static final String CLOUD_ADDR = "yun.bolink.club";
-//	public static final String BOLINK_ADDR = "s.bolink.club";
-	 public static final String CLOUD_ADDR = "test.bolink.club";
-	 public static final String BOLINK_ADDR = "beta.bolink.club";
+	public static final String CLOUD_ADDR = "yun.bolink.club";
+	public static final String BOLINK_ADDR = "s.bolink.club";
+//	 public static final String CLOUD_ADDR = "test.bolink.club";
+//	 public static final String BOLINK_ADDR = "beta.bolink.club";
 
 	private static JFrame frame;
 	private JTextField ed_carnumber;
@@ -538,7 +538,7 @@ public class MainSDK {
 						String pay_status = "{\"service_name\":\"pay_status\",\"car_number\":\""
 								+ entity.getCar_number() + "\",\"order_id\":\"" + entity.getOrder_id() + "\"}";
 						String result = UploadUtil.getPayStatus(pay_status);
-						System.out.println("query paytype :" + result);
+						System.out.println("查询余额返回 :" + result);
 						// {"balance":"0","car_number":"晋AAAQAZ","errmsg":"","is_exist":0,"net_status":1,
 						// "order_id":"1494230327","service_name":"pay_status","state":1}
 						JSONObject obj = JSONObject.fromObject(result);
@@ -556,7 +556,7 @@ public class MainSDK {
 						String pay_status = "{\"service_name\":\"pay_status\",\"car_number\":\""
 								+ entity.getCar_number() + "\",\"order_id\":\"" + entity.getOrder_id() + "\"}";
 						String result = UploadUtil.getPayStatus(pay_status);
-						System.out.println("query paytype :" + result);
+						System.out.println("查询余额返回 :" + result);
 						// {"balance":"0","car_number":"晋AAAQAZ","errmsg":"","is_exist":0,"net_status":1,
 						// "order_id":"1494230327","service_name":"pay_status","state":1}
 						JSONObject obj = JSONObject.fromObject(result);
@@ -920,7 +920,7 @@ public class MainSDK {
 				outentity.setOut_uid(outuid);
 				outentity.setOrder_id(ed_orderid.getText());
 				outentity.setOut_channel_id(ed_outChannelId.getText());
-				outentity.setTotal(ed_total_now.getText());
+				outentity.setTotal("0");
 				outentity.setReduce_amount(edit_decrate_money.getText());
 				outentity.setTicket_id(ticket_id.getText());
 				outentity.setElectronic_prepay(edit_prepay.getText());

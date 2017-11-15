@@ -296,7 +296,7 @@ public class InterFaceParking extends InterfacePark {
 					// MainSDK.ticket_id.setText(object.getString("duration"));
 				}
 				double decrate = FileUtil.doubleFormat(derate_money);
-				//当前金额再减优惠金额
+				// 当前金额再减优惠金额
 				double totalnow = FileUtil.DoubleCalculate(MainSDK.ed_total_now.getText(), decrate, 0);
 				// 优惠金额那一栏填写
 				MainSDK.edit_decrate_money.setText(decrate + "");
@@ -458,6 +458,15 @@ public class InterFaceParking extends InterfacePark {
 					+ ",\"service_name\":\"gate_sync\",\"errmsg\":\"月卡续费记录下发成功！\",\"trade_no\":\"" + trade_no + "\"}";
 			UploadData(back);
 			break;
+			
+//		// ======================================================
+//		// API更新用户余额
+//		// ======================================================
+//		case "update_balance":
+//			String car_number = object.getString("car_number");
+//			String balance = object.getString("balance");
+//			
+//			break;
 		default:
 			back = "{\"state\":1,\"service_name\":\"default_service\",\"errmsg\":\"未处理的msg callback\"}";
 
