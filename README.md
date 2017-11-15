@@ -1,0 +1,4 @@
+# SDKJavaTEST
+包含了sdk和api两个测试项目
+默认集成了sdk的jar包
+如果要测试api需要更换依赖
