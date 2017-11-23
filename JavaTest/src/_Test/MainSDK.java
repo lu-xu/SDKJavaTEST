@@ -4,10 +4,12 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.Encoder;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -78,6 +80,11 @@ public class MainSDK {
 //	 public static final String U_ID = "200160";
 //	 public static final String CK = "WERRTTTTYY";
 //	 public static final String UK = "8A9957DB72608427";
+	//星网锐捷beta平台
+//	 public static final String PARK_ID = "21850";
+//	 public static final String U_ID = "200228";
+//	 public static final String CK = "J47AINVCZ05WT0N8";
+//	 public static final String UK = "EB42372AB5BE1B18";
 
 	// API初始化信息修改
 	String msg = "{\"union_id\":\"200208\"," + "\"ukey\":\"8403A41ED5EF20BC\"," + "\"park_id\":\"21835\","
@@ -103,6 +110,7 @@ public class MainSDK {
 	public static final String CLOUD_ADDR = "yun.bolink.club";
 	public static final String BOLINK_ADDR = "s.bolink.club";
 //	 public static final String CLOUD_ADDR = "test.bolink.club";
+//	 public static final String CLOUD_ADDR = "192.168.199.205";
 //	 public static final String BOLINK_ADDR = "beta.bolink.club";
 
 	private static JFrame frame;
@@ -121,6 +129,7 @@ public class MainSDK {
 	public static JTextField ed_total;
 
 	private static InterFaceParking g_park = null;
+//	private static ReceiveDataCallBack callback = null;
 
 	public static void main(String[] args) {
 
@@ -136,10 +145,12 @@ public class MainSDK {
 
 		g_park = new InterFaceParking();
 		UploadUtil.setInterfacePark(g_park);
+//		ReceiveDataCallBack callback = new ReceiveDataCallBack();
+//		UploadUtil.setInterfacePark(callback);
 		SqliteJDBC.Init();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+				try {				  
 					MainSDK window = new MainSDK();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -298,6 +309,12 @@ public class MainSDK {
 				lblNewLabel.setText("list size:" + carInList.size());
 				String msg = Obj2Json(entity);
 				lblNewLabel.setText(msg);
+				try {
+					msg = new String(msg.getBytes(), "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.println("发送进场：" + msg);
 				String state = UploadUtil.uploadInParkOrder(msg);
 				System.out.println("进场SDK同步返回：" + state);
@@ -748,7 +765,6 @@ public class MainSDK {
 		frame.getContentPane().add(lblNewLabel_3);
 
 		ed_uid = new JTextField();
-		ed_uid.setText("522797");
 		springLayout.putConstraint(SpringLayout.SOUTH, ed_uid, -6, SpringLayout.NORTH, button);
 		springLayout.putConstraint(SpringLayout.EAST, ed_uid, 0, SpringLayout.EAST, ed_carnumber);
 		frame.getContentPane().add(ed_uid);
@@ -883,7 +899,7 @@ public class MainSDK {
 			public void actionPerformed(ActionEvent arg0) {
 
 				String msg = "{\"union_id\":\"" + textField.getText() + "\",\"ukey\":\"" + txtEadfeefefe.getText()
-						+ "\",\"park_id\":\"" + textField_1.getText() + "\",\"bport\":6789,\"cport\":6789,\"ckey\":\""
+						+ "\",\"park_id\":\"" + textField_1.getText() + "\",\"bport\":"+PORT+",\"cport\":"+PORT+",\"ckey\":\""
 						+ txteztthbbzhogf.getText() + "\",\"cloud_addr\":\"" + CLOUD_ADDR + "\",\"bolink_addr\":\""
 						+ BOLINK_ADDR + "\",\"local_id\":\"" + txtBengxiakalaka.getText() + "\",\"log_show\":"
 						+ LOG_SHOW + "}";

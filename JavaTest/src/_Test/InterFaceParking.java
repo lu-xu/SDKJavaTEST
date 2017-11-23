@@ -438,7 +438,7 @@ public class InterFaceParking extends InterfacePark {
 			state = 1;
 			String black_uuid = object.getString("black_uuid");
 			back = "{\"data_target\":\"cloud\",\"state\":" + state
-					+ ",\"service_name\":\"gate_sync\",\"errmsg\":\"黑名单下发成功！\",\"black_uuid\":\"" + black_uuid + "\"}";
+					+ ",\"service_name\":\"blackuser_sync\",\"errmsg\":\"黑名单下发成功！\",\"black_uuid\":\"" + black_uuid + "\"}";
 			UploadData(back);
 			break;
 		case "car_type_sync":
@@ -446,7 +446,7 @@ public class InterFaceParking extends InterfacePark {
 			state = 1;
 			String car_type_id = object.getString("car_type_id");
 			back = "{\"data_target\":\"cloud\",\"state\":" + state
-					+ ",\"service_name\":\"gate_sync\",\"errmsg\":\"车型数据下发成功！\",\"car_type_id\":\"" + car_type_id
+					+ ",\"service_name\":\"car_type_sync\",\"errmsg\":\"车型数据下发成功！\",\"car_type_id\":\"" + car_type_id
 					+ "\"}";
 			UploadData(back);
 			break;
@@ -455,7 +455,7 @@ public class InterFaceParking extends InterfacePark {
 			state = 1;
 			trade_no = object.getString("car_type_id");
 			back = "{\"data_target\":\"cloud\",\"state\":" + state
-					+ ",\"service_name\":\"gate_sync\",\"errmsg\":\"月卡续费记录下发成功！\",\"trade_no\":\"" + trade_no + "\"}";
+					+ ",\"service_name\":\"month_pay_sync\",\"errmsg\":\"月卡续费记录下发成功！\",\"trade_no\":\"" + trade_no + "\"}";
 			UploadData(back);
 			break;
 			

@@ -10,9 +10,9 @@ public class FileUtil {
 	public static double calPrice(long duration) {
 		// ��λ����
 		// return duration*0.01/900+0.01;
-		// return 0.01;
+		 return 0.01;
 //		return duration * 0.01 / 60 + 1.01;
-		return 15;
+//		return 15;
 	}
 
 	public static String AnalysLog(String content, List<String> target) {
