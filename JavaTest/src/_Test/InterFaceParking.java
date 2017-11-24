@@ -259,12 +259,13 @@ public class InterFaceParking extends InterfacePark {
 		case "lock_car":
 
 			int islock = object.getInt("is_locked");
+			order_id = object.getString("order_id");
 			if (islock == 0) {
 				// 解锁
-				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"解锁成功\",\"data_target\":\"cloud\",\"order_id\":\"12345\",\"is_locked\":0}";
+				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"解锁成功\",\"data_target\":\"cloud\",\"order_id\":\""+order_id+"\",\"is_locked\":0}";
 			} else {
 				// 锁车
-				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"锁车成功\",\"data_target\":\"cloud\",\"order_id\":\"12345\",\"is_locked\":1}";
+				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"锁车成功\",\"data_target\":\"cloud\",\"order_id\":\""+order_id+"\",\"is_locked\":1}";
 			}
 
 			UploadData(back);
