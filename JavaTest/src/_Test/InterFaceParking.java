@@ -32,6 +32,7 @@ public class InterFaceParking extends InterfacePark {
 		int operate_type;
 
 		CarInEntity entity = null;
+		JSONObject dataobj = null;
 		switch (service_name) {
 		case "outpark":
 			// {"service_name":"outpark","pay_type":"sweepcode","state":1,"errmsg":"支付成功","trade_no":"kftweixinprepay20010320170725111512897",
@@ -262,10 +263,12 @@ public class InterFaceParking extends InterfacePark {
 			order_id = object.getString("order_id");
 			if (islock == 0) {
 				// 解锁
-				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"解锁成功\",\"data_target\":\"cloud\",\"order_id\":\""+order_id+"\",\"is_locked\":0}";
+				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"解锁成功\",\"data_target\":\"cloud\",\"order_id\":\""
+						+ order_id + "\",\"is_locked\":0}";
 			} else {
 				// 锁车
-				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"锁车成功\",\"data_target\":\"cloud\",\"order_id\":\""+order_id+"\",\"is_locked\":1}";
+				back = "{\"state\":1,\"service_name\":\"lock_car\",\"errmsg\":\"锁车成功\",\"data_target\":\"cloud\",\"order_id\":\""
+						+ order_id + "\",\"is_locked\":1}";
 			}
 
 			UploadData(back);
@@ -382,6 +385,7 @@ public class InterFaceParking extends InterfacePark {
 		// ===============================================================================
 		case "price_sync":
 			// 3.1价格同步
+			dataobj = object.getJSONObject("data");
 			operate_type = object.getInt("operate_type");
 			state = 1;
 			String price_id = object.getString("price_id");
@@ -392,9 +396,10 @@ public class InterFaceParking extends InterfacePark {
 			break;
 		case "month_card_sync":
 			// 3.2月卡套餐同步
-			String package_id = object.getString("package_id");
+			dataobj = object.getJSONObject("data");
+			String package_id = dataobj.getString("package_id");
 			state = 1;
-			operate_type = object.getInt("operate_type");
+			operate_type = dataobj.getInt("operate_type");
 			back = "{\"service_name\":\"month_card_sync\",\"data_target\":\"cloud\",\"state\":" + state
 					+ ",\"package_id\":\"" + package_id + "\",\"operate_type\":" + operate_type
 					+ ",\"errmsg\":\" 月卡套餐同步成功！\"}";
@@ -402,18 +407,20 @@ public class InterFaceParking extends InterfacePark {
 			break;
 		case "month_member_sync":
 			// 3.3月卡会员同步
+			dataobj = object.getJSONObject("data");
 			state = 1;
-			String card_id = object.getString("card_id");
-			operate_type = object.getInt("operate_type");
+			String card_id = dataobj.getString("card_id");
+			operate_type = dataobj.getInt("operate_type");
 			back = "{\"service_name\":\"month_member_sync\",\"data_target\":\"cloud\",\"card_id\":\"" + card_id
 					+ "\",\"state\":" + state + ",\"operate_type\":" + operate_type + ",\"errmsg\":\"月卡会员同步成功！ \"}";
 			UploadData(back);
 			break;
 		case "collector_sync":
 			// 3.4车场收费员信息同步
+			dataobj = object.getJSONObject("data");
 			state = 1;
-			String user_id = object.getString("user_id");
-			operate_type = object.getInt("operate_type");
+			String user_id = dataobj.getString("user_id");
+			operate_type = dataobj.getInt("operate_type");
 			back = "{\"state\":" + state + ",\"user_id\":\"" + user_id
 					+ "\",\"service_name\":\"collector_sync\",\"data_target\":\"cloud\",\"operate_type\":"
 					+ operate_type + ",\"errmsg\":\"车场收费员信息同步成功！\"}";
@@ -428,24 +435,28 @@ public class InterFaceParking extends InterfacePark {
 			break;
 		case "gate_sync":
 			// 3.13通道数据下发
+			dataobj = object.getJSONObject("data");
 			state = 1;
-			channel_id = object.getString("channel_id");
+			channel_id = dataobj.getString("channel_id");
 			back = "{\"data_target\":\"cloud\",\"state\":" + state
 					+ ",\"service_name\":\"gate_sync\",\"errmsg\":\"通道数据下发成功！\",\"channel_id\":\"" + channel_id + "\"}";
 			UploadData(back);
 			break;
 		case "blackuser_sync":
 			// 3.14黑名单下发
+			dataobj = object.getJSONObject("data");
 			state = 1;
-			String black_uuid = object.getString("black_uuid");
+			String black_uuid = dataobj.getString("black_uuid");
 			back = "{\"data_target\":\"cloud\",\"state\":" + state
-					+ ",\"service_name\":\"blackuser_sync\",\"errmsg\":\"黑名单下发成功！\",\"black_uuid\":\"" + black_uuid + "\"}";
+					+ ",\"service_name\":\"blackuser_sync\",\"errmsg\":\"黑名单下发成功！\",\"black_uuid\":\"" + black_uuid
+					+ "\"}";
 			UploadData(back);
 			break;
 		case "car_type_sync":
 			// 3.15车型数据下发
+			dataobj = object.getJSONObject("data");
 			state = 1;
-			String car_type_id = object.getString("car_type_id");
+			String car_type_id = dataobj.getString("car_type_id");
 			back = "{\"data_target\":\"cloud\",\"state\":" + state
 					+ ",\"service_name\":\"car_type_sync\",\"errmsg\":\"车型数据下发成功！\",\"car_type_id\":\"" + car_type_id
 					+ "\"}";
@@ -453,21 +464,43 @@ public class InterFaceParking extends InterfacePark {
 			break;
 		case "month_pay_sync":
 			// 3.16月卡续费记录下发
+			dataobj = object.getJSONObject("data");
 			state = 1;
-			trade_no = object.getString("car_type_id");
+			trade_no = dataobj.getString("trade_no");
 			back = "{\"data_target\":\"cloud\",\"state\":" + state
-					+ ",\"service_name\":\"month_pay_sync\",\"errmsg\":\"月卡续费记录下发成功！\",\"trade_no\":\"" + trade_no + "\"}";
+					+ ",\"service_name\":\"month_pay_sync\",\"errmsg\":\"月卡续费记录下发成功！\",\"trade_no\":\"" + trade_no
+					+ "\"}";
 			UploadData(back);
 			break;
-			
-//		// ======================================================
-//		// API更新用户余额
-//		// ======================================================
-//		case "update_balance":
-//			String car_number = object.getString("car_number");
-//			String balance = object.getString("balance");
-//			
-//			break;
+		case "confirm_order_inform":
+			// 3.17月卡续费记录下发
+			state = 1;
+			String event_id = object.getString("event_id");
+			back = "{\"data_target\":\"cloud\",\"state\":" + state
+					+ ",\"service_name\":\"confirm_order_inform\",\"errmsg\":\"手动匹配订单成功！\",\"event_id\":\"" + event_id
+					+ "\"}";
+			UploadData(back);
+			break;
+		case "operate_liftrod":
+			// 3.18抬杆/落杆通知
+			state = 1;
+			channel_id = object.getString("channel_id");
+			// String channel_name = object.getString("channel_name");
+			String operate = object.getString("operate");
+			back = "{\"data_target\":\"cloud\",\"state\":" + state
+					+ ",\"service_name\":\"operate_liftrod\",\"errmsg\":\"抬杆、落杆通知成功！\",\"channel_id\":\"" + channel_id
+					+ "\",\"operate\":\"" + operate + "\"}";
+			UploadData(back);
+			break;
+
+		// // ======================================================
+		// // API更新用户余额
+		// // ======================================================
+		// case "update_balance":
+		// String car_number = object.getString("car_number");
+		// String balance = object.getString("balance");
+		//
+		// break;
 		default:
 			back = "{\"state\":1,\"service_name\":\"default_service\",\"errmsg\":\"未处理的msg callback\"}";
 
