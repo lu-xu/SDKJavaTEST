@@ -253,8 +253,10 @@ public class InterFaceParking extends InterfacePark {
 					+ "\",\"state\":" + state + ",\"park_id\":\"" + parkid + "\",\"order_id\":\"" + order_id
 					+ "\",\"price\":\"" + Total + "\",\"duration\":" + ((duration / 60) >= 1 ? (duration / 60) : 1)
 					+ ",\"free_out_time\":" + 100 + ",\"query_time\":" + System.currentTimeMillis() / 1000
-					+ ",\"derate_money\":\"" + derate_money + "\",\"derate_duration\":\"" + derate_duration
-					+ "\",\"total\":\"" + price + "\",\"query_order_no\":\"" + query_order_no + "\"}";
+					+ ",\"derate_money\":\""
+					+ (FileUtil.doubleFormat(derate_money) > price ? price : FileUtil.doubleFormat(derate_money))
+					+ "\",\"derate_duration\":\"" + derate_duration + "\",\"total\":\"" + price
+					+ "\",\"query_order_no\":\"" + query_order_no + "\"}";
 			UploadData(back);
 			break;
 		case "lock_car":
@@ -274,11 +276,15 @@ public class InterFaceParking extends InterfacePark {
 			UploadData(back);
 			break;
 		case "deliver_ticket":
-
-			int ticket_type = object.getInt("ticket_type");
+			// 3.10优惠券信息同步（停车云）
+			int ticket_type = object.getInt("ticket_type");// 减免类型：0表示减免停车金额
+															// 1表示减免停车时长 2 表示全免劵
 			order_id = object.getString("order_id");
 			String ticket_id = object.getString("ticket_id");
-
+			int Ticket_unit = 2;// 时长劵单位：1表示分钟2表示小时3表示天
+			if (ticket_type == 1) {
+				Ticket_unit = object.getInt("Ticket_unit");
+			}
 			int index = 0;
 			for (int i = 0; i < MainSDK.carInList.size(); i++) {
 				if (MainSDK.carInList.get(i).getOrder_id().equals(order_id)) {
@@ -291,14 +297,32 @@ public class InterFaceParking extends InterfacePark {
 			}
 			if (querry) {
 				// 回传给sdk的优惠券金额
-				if (ticket_type == 0 || ticket_type == 2) {
+				switch (ticket_type) {
+				case 0:
 					// 减免停车金额
 					derate_money = object.getDouble("money");
-				} else {
-					// 减免停车时长 小时为单位，计算价格传入3600秒，为1小时对应的金额
-					derate_money = Double.parseDouble(object.getString("duration")) * FileUtil.calPrice(3600);
-					// MainSDK.ticket_id.setText(object.getString("duration"));
+					break;
+				case 1:
+					// 减免停车时长
+					switch (Ticket_unit) {
+					case 1:
+						derate_money = Double.parseDouble(object.getString("duration")) * FileUtil.calPrice(60);
+						break;
+					case 2:
+						// 减免停车时长 小时为单位，计算价格传入3600秒，为1小时对应的金额
+						derate_money = Double.parseDouble(object.getString("duration")) * FileUtil.calPrice(3600);
+						break;
+					case 3:
+						derate_money = Double.parseDouble(object.getString("duration")) * FileUtil.calPrice(3600 * 24);
+						break;
+					}
+					break;
+				case 2:
+					// 全免
+					derate_money = 100000000;
+					break;
 				}
+
 				double decrate = FileUtil.doubleFormat(derate_money);
 				// 当前金额再减优惠金额
 				double totalnow = FileUtil.DoubleCalculate(MainSDK.ed_total_now.getText(), decrate, 0);
@@ -386,9 +410,9 @@ public class InterFaceParking extends InterfacePark {
 		case "price_sync":
 			// 3.1价格同步
 			dataobj = object.getJSONObject("data");
-			operate_type = object.getInt("operate_type");
+			operate_type = dataobj.getInt("operate_type");
 			state = 1;
-			String price_id = object.getString("price_id");
+			String price_id = dataobj.getString("price_id");
 
 			back = "{\"service_name\":\"price_sync\",\"data_target\":\"cloud\",\"operate_type\":" + operate_type
 					+ ",\"state\":" + state + ",\"price_id\":\"" + price_id + "\",\"errmsg\":\"价格同步成功！\"}";

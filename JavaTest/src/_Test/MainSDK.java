@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -71,20 +72,35 @@ public class MainSDK {
 	// public static final String UK= "AB4B3DEEC7AEA20D";
 
 	// 缴费机正式平台
-	public static final String PARK_ID = "21787";
-	public static final String U_ID = "200159";
-	public static final String CK = "LDGFFLEWS4WE67US";
-	public static final String UK = "C160955B1479621F";
+//	public static final String PARK_ID = "21787";
+//	public static final String U_ID = "200159";
+//	public static final String CK = "LDGFFLEWS4WE67US";
+//	public static final String UK = "C160955B1479621F";
+//	// 缴费机正式平台
+	public static final String PARK_ID = "21840";
+	public static final String U_ID = "200002";
+	public static final String CK = "CMJJOJDXSN172181";
+	public static final String UK = "EA2D90FEEF1E9F8E";
 	// 缴费机beta平台
 //	 public static final String PARK_ID = "21782";
 //	 public static final String U_ID = "200160";
 //	 public static final String CK = "WERRTTTTYY";
 //	 public static final String UK = "8A9957DB72608427";
-	//星网锐捷beta平台
+//	//星网锐捷beta平台
 //	 public static final String PARK_ID = "21850";
 //	 public static final String U_ID = "200228";
 //	 public static final String CK = "J47AINVCZ05WT0N8";
 //	 public static final String UK = "EB42372AB5BE1B18";
+	 //星网锐捷正式平台
+//	 public static final String PARK_ID = "21866";
+//	 public static final String U_ID = "200169";
+//	 public static final String CK = "I8BTZ14FD4BEWLIV";
+//	 public static final String UK = "D81EA30B4C0B8BC0";
+	//海莆田beta平台
+//	 public static final String PARK_ID = "SZHPT1001";
+//	 public static final String U_ID = "200238";
+//	 public static final String CK = "WERRTTTTYY";
+//	 public static final String UK = "25EE874A2B7E106F";
 
 	// API初始化信息修改
 	String msg = "{\"union_id\":\"200208\"," + "\"ukey\":\"8403A41ED5EF20BC\"," + "\"park_id\":\"21835\","
@@ -103,7 +119,7 @@ public class MainSDK {
 	// public static final String LOCAL_ID=
 	// "MS-20170114YUXD_channels_01-1_01-2guyue_aa1channelsMS-20170114YUXD_channels_01-1_01-2";
 	// public static final String LOCAL_ID= "lph_channels_01-1";
-	public static final String LOCAL_ID = "dfgavdgare_channels_01-1";
+	public static final String LOCAL_ID = "xlmikason";
 
 	public static final int LOG_SHOW = 1;
 	public static final int PORT = 6789;
@@ -133,15 +149,15 @@ public class MainSDK {
 
 	public static void main(String[] args) {
 
-		// try {
-		// String encode1 = URLEncoder.encode("红红火火恍恍惚惚", "utf-8");
-		// String encode2 = URLEncoder.encode(encode1, "utf-8");
-		// System.out.println(encode1);
-		// System.out.println(encode2);
-		// } catch (UnsupportedEncodingException e1) {
-		// // TODO Auto-generated catch block
-		// e1.printStackTrace();
-		// }
+		 try {
+		 String encode1 = URLEncoder.encode("京A12345", "utf-8");
+		 String encode2 = URLEncoder.encode(encode1, "utf-8");
+		 System.out.println(encode1);
+		 System.out.println(encode2);
+		 } catch (UnsupportedEncodingException e1) {
+		 // TODO Auto-generated catch block
+		 e1.printStackTrace();
+		 }
 
 		g_park = new InterFaceParking();
 		UploadUtil.setInterfacePark(g_park);
