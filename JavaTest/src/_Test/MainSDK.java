@@ -81,6 +81,11 @@ public class MainSDK {
 	public static final String U_ID = "200002";
 	public static final String CK = "CMJJOJDXSN172181";
 	public static final String UK = "EA2D90FEEF1E9F8E";
+//	// 缴费机beta平台-古月车场
+//	public static final String PARK_ID = "21776";
+//	public static final String U_ID = "200002";
+//	public static final String CK = "WERRTTTTYY";
+//	public static final String UK = "EA2D90FEEF1E9F8E";
 	// 缴费机beta平台
 //	 public static final String PARK_ID = "21782";
 //	 public static final String U_ID = "200160";
@@ -121,7 +126,7 @@ public class MainSDK {
 	// public static final String LOCAL_ID= "lph_channels_01-1";
 	public static final String LOCAL_ID = "xlmikason";
 
-	public static final int LOG_SHOW = 1;
+	public static final int LOG_SHOW = 0;
 	public static final int PORT = 6789;
 	public static final String CLOUD_ADDR = "yun.bolink.club";
 	public static final String BOLINK_ADDR = "s.bolink.club";
@@ -1308,6 +1313,32 @@ public class MainSDK {
 		springLayout.putConstraint(SpringLayout.WEST, textField_4, 6, SpringLayout.EAST, textField_3);
 		frame.getContentPane().add(textField_4);
 		textField_4.setColumns(10);
+		
+		JButton button_4 = new JButton("进场");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String msg = textArea.getText();
+				System.out.println("send进场发送数据>>>>>>>>>>>>>>>>>>>>>" + msg);
+				String state = UploadUtil.uploadInParkOrder(msg);
+				System.out.println("send进场返回数据>>>>>>>>>>>>>>>>>>>>>" + state);
+			}
+		});
+		springLayout.putConstraint(SpringLayout.NORTH, button_4, 31, SpringLayout.SOUTH, btnNewButton_8);
+		springLayout.putConstraint(SpringLayout.WEST, button_4, 0, SpringLayout.WEST, btnNewButton);
+		frame.getContentPane().add(button_4);
+		
+		JButton button_5 = new JButton("出场");
+		button_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String msg = textArea.getText();
+				System.out.println("send出场发送数据>>>>>>>>>>>>>>>>>>>>>" + msg);
+				String state = UploadUtil.uploadOutParkOrder(msg);
+				System.out.println("send出场返回数据>>>>>>>>>>>>>>>>>>>>>" + state);
+			}
+		});
+		springLayout.putConstraint(SpringLayout.NORTH, button_5, 22, SpringLayout.SOUTH, button_4);
+		springLayout.putConstraint(SpringLayout.WEST, button_5, 0, SpringLayout.WEST, btnNewButton);
+		frame.getContentPane().add(button_5);
 	}
 
 	int count = 0;

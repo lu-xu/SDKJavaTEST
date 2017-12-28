@@ -283,7 +283,7 @@ public class InterFaceParking extends InterfacePark {
 			String ticket_id = object.getString("ticket_id");
 			int Ticket_unit = 2;// 时长劵单位：1表示分钟2表示小时3表示天
 			if (ticket_type == 1) {
-				Ticket_unit = object.getInt("Ticket_unit");
+				Ticket_unit = object.getInt("ticket_unit");
 			}
 			int index = 0;
 			for (int i = 0; i < MainSDK.carInList.size(); i++) {
@@ -319,7 +319,7 @@ public class InterFaceParking extends InterfacePark {
 					break;
 				case 2:
 					// 全免
-					derate_money = 100000000;
+					derate_money = 1000000;
 					break;
 				}
 

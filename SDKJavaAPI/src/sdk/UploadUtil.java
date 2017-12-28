@@ -288,7 +288,16 @@ public class UploadUtil {
 			System.out.println("upload outpark:" + data.toString());
 
 			return RequetData(service_name, data);
-		} else {
+		} else if("code_url".equals(service_name)){
+			CodeUrlData data = new CodeUrlData();
+			data.setData_target(o.get("data_target").getAsString());
+			data.setService_name(service_name);
+			data.setChannel_id(o.get("channel_id").getAsString());
+			data.setType(o.get("type").getAsInt());
+			System.out.println("upload outpark:" + data.toString());
+			
+			return RequetData(service_name, data);
+		}else {
 			System.out.println("noneeeeeeeee:");
 
 			return "{\"state\":0,\"errmsg\":\"没有这个接口，别试了，具体有什么问权浩\"}";
