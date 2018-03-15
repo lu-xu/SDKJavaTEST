@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -160,8 +159,9 @@ public class UploadUtil {
 	public static void getDataFromServer(final InterfacePark interfacePark) {
 		new Thread(new Runnable() {
 			public void run() {
-				System.out.println("开始查询消息");
+				
 				while (true) {
+					System.out.println("开始查询消息");
 					String result = RequetDataInteval();
 					if (result != null && result.contains("service_name")) {
 						//如果是更新余额，就在这里处理放入缓存list，getPayStatus的时候返回
@@ -337,9 +337,9 @@ public class UploadUtil {
 
 	public static <T> String RequetDataInteval() {
 		String result = HttpProxy.doHeadPost(URL_INTETAL, null, "{\"token\":\"" + token + "\"}");
-		if ("500".equals(result)) {
-			result = "暂无下行消息";
-		}
+//		if ("500".equals(result)) {
+//			result = "暂无下行消息";
+//		}
 		System.out.println(">>>>获取到异步下行数据>>>>" + result);
 		return result;
 	}

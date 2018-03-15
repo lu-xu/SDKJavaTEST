@@ -56,11 +56,7 @@ public class MainSDK {
 	// 21779，ck: Q0RX0PQOF6ZXD4TO 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
 	// 3251，ck: 9H3YD5U5T73GITSP 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
 
-//	 public static final String PARK_ID = "3251";
-//	 public static final String U_ID = "200002";
-//	 public static final String CK = "9H3YD5U5T73GITSP";
-//	 public static final String UK= "EA2D90FEEF1E9F8E";
-
+	// public static final String PARK_IDwo
 	// public static final String PARK_ID = "KJ10001";
 	// public static final String U_ID = "200191";
 	// public static final String CK = "WERRTTTTYY";
@@ -72,40 +68,40 @@ public class MainSDK {
 	// public static final String UK= "AB4B3DEEC7AEA20D";
 
 	// 缴费机正式平台
-//	public static final String PARK_ID = "21787";
-//	public static final String U_ID = "200159";
-//	public static final String CK = "LDGFFLEWS4WE67US";
-//	public static final String UK = "C160955B1479621F";
-//	// 缴费机正式平台
+	// public static final String PARK_ID = "21787";
+	// public static final String U_ID = "200159";
+	// public static final String CK = "LDGFFLEWS4WE67US";
+	// public static final String UK = "C160955B1479621F";
+	// // 缴费机正式平台
 	public static final String PARK_ID = "21840";
 	public static final String U_ID = "200002";
 	public static final String CK = "CMJJOJDXSN172181";
 	public static final String UK = "EA2D90FEEF1E9F8E";
-//	// 缴费机beta平台-古月车场
-//	public static final String PARK_ID = "21776";
-//	public static final String U_ID = "200002";
-//	public static final String CK = "WERRTTTTYY";
-//	public static final String UK = "EA2D90FEEF1E9F8E";
+	// // 缴费机beta平台-古月车场
+	// public static final String PARK_ID = "21776";
+	// public static final String U_ID = "200002";
+	// public static final String CK = "WERRTTTTYY";
+	// public static final String UK = "EA2D90FEEF1E9F8E";
 	// 缴费机beta平台
-//	 public static final String PARK_ID = "21782";
-//	 public static final String U_ID = "200160";
-//	 public static final String CK = "WERRTTTTYY";
-//	 public static final String UK = "8A9957DB72608427";
-//	//星网锐捷beta平台
-//	 public static final String PARK_ID = "21850";
-//	 public static final String U_ID = "200228";
-//	 public static final String CK = "J47AINVCZ05WT0N8";
-//	 public static final String UK = "EB42372AB5BE1B18";
-	 //星网锐捷正式平台
-//	 public static final String PARK_ID = "21866";
-//	 public static final String U_ID = "200169";
-//	 public static final String CK = "I8BTZ14FD4BEWLIV";
-//	 public static final String UK = "D81EA30B4C0B8BC0";
-	//海莆田beta平台
-//	 public static final String PARK_ID = "SZHPT1001";
-//	 public static final String U_ID = "200238";
-//	 public static final String CK = "WERRTTTTYY";
-//	 public static final String UK = "25EE874A2B7E106F";
+	// public static final String PARK_ID = "21782";
+	// public static final String U_ID = "200160";
+	// public static final String CK = "WERRTTTTYY";
+	// public static final String UK = "8A9957DB72608427";
+	// //星网锐捷beta平台
+	// public static final String PARK_ID = "21850";
+	// public static final String U_ID = "200228";
+	// public static final String CK = "J47AINVCZ05WT0N8";
+	// public static final String UK = "EB42372AB5BE1B18";
+	// 星网锐捷正式平台
+	// public static final String PARK_ID = "21866";
+	// public static final String U_ID = "200169";
+	// public static final String CK = "I8BTZ14FD4BEWLIV";
+	// public static final String UK = "D81EA30B4C0B8BC0";
+	// 海莆田beta平台
+	// public static final String PARK_ID = "SZHPT1001";
+	// public static final String U_ID = "200238";
+	// public static final String CK = "WERRTTTTYY";
+	// public static final String UK = "25EE874A2B7E106F";
 
 	// API初始化信息修改
 	String msg = "{\"union_id\":\"200208\"," + "\"ukey\":\"8403A41ED5EF20BC\"," + "\"park_id\":\"21835\","
@@ -123,16 +119,19 @@ public class MainSDK {
 	// public static final String LOCAL_ID= "gg1_channels_A1_A2_B3";
 	// public static final String LOCAL_ID=
 	// "MS-20170114YUXD_channels_01-1_01-2guyue_aa1channelsMS-20170114YUXD_channels_01-1_01-2";
-	// public static final String LOCAL_ID= "lph_channels_01-1";
-	public static final String LOCAL_ID = "xlmikason";
+	public static final String LOCAL_ID = "lphtrfy_channels_01-1";
+	// public static final String LOCAL_ID = "xlmikason_syncdata";
 
-	public static final int LOG_SHOW = 0;
-	public static final int PORT = 6789;
+	public static final int LOG_SHOW = 1;
+	// public static final int PORT = 6789;
+	public static final int BPORT = 6789;
+	public static final int CPORT = 6789;
 	public static final String CLOUD_ADDR = "yun.bolink.club";
 	public static final String BOLINK_ADDR = "s.bolink.club";
-//	 public static final String CLOUD_ADDR = "test.bolink.club";
-//	 public static final String CLOUD_ADDR = "192.168.199.205";
-//	 public static final String BOLINK_ADDR = "beta.bolink.club";
+	// public static final String CLOUD_ADDR = "1029.parkingos.club";
+	// public static final String CLOUD_ADDR = "test.bolink.club";
+	// public static final String CLOUD_ADDR = "192.168.199.205";
+	// public static final String BOLINK_ADDR = "beta.bolink.club";
 
 	private static JFrame frame;
 	private JTextField ed_carnumber;
@@ -150,28 +149,28 @@ public class MainSDK {
 	public static JTextField ed_total;
 
 	private static InterFaceParking g_park = null;
-//	private static ReceiveDataCallBack callback = null;
+	// private static ReceiveDataCallBack callback = null;
 
 	public static void main(String[] args) {
 
-		 try {
-		 String encode1 = URLEncoder.encode("京A12345", "utf-8");
-		 String encode2 = URLEncoder.encode(encode1, "utf-8");
-		 System.out.println(encode1);
-		 System.out.println(encode2);
-		 } catch (UnsupportedEncodingException e1) {
-		 // TODO Auto-generated catch block
-		 e1.printStackTrace();
-		 }
+		try {
+			String encode1 = URLEncoder.encode("京A12345", "utf-8");
+			String encode2 = URLEncoder.encode(encode1, "utf-8");
+			System.out.println(encode1);
+			System.out.println(encode2);
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		g_park = new InterFaceParking();
 		UploadUtil.setInterfacePark(g_park);
-//		ReceiveDataCallBack callback = new ReceiveDataCallBack();
-//		UploadUtil.setInterfacePark(callback);
+		// ReceiveDataCallBack callback = new ReceiveDataCallBack();
+		// UploadUtil.setInterfacePark(callback);
 		SqliteJDBC.Init();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {				  
+				try {
 					MainSDK window = new MainSDK();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -209,7 +208,7 @@ public class MainSDK {
 	private static List<CarOutEntity> carOutList = new ArrayList<CarOutEntity>();
 	private static List<PayState> payStateList = new ArrayList<PayState>();
 	private JTextField ed_scan;
-//	JLabel lblNewLabel_2;
+	// JLabel lblNewLabel_2;
 
 	/**
 	 * Initialize the contents of the frame.
@@ -339,7 +338,7 @@ public class MainSDK {
 				System.out.println("发送进场：" + msg);
 				String state = UploadUtil.uploadInParkOrder(msg);
 				System.out.println("进场SDK同步返回：" + state);
-//				lblNewLabel_2.setText(state);
+				// lblNewLabel_2.setText(state);
 				if (carInList != null && carInList.size() > 0) {
 					String[] arr = new String[carInList.size()];
 					for (int i = 0; i < carInList.size(); i++) {
@@ -468,6 +467,8 @@ public class MainSDK {
 				outentity.setOut_uid(outuid);
 				outentity.setOrder_id(ed_orderid.getText());
 				outentity.setOut_channel_id(ed_outChannelId.getText());
+				outentity.setIn_channel_id(ed_inchannel_out.getText());
+
 				outentity.setTotal(ed_total_now.getText());
 				outentity.setReduce_amount(edit_decrate_money.getText());
 				outentity.setTicket_id(ticket_id.getText());
@@ -491,7 +492,7 @@ public class MainSDK {
 					lblNewLabel.setText(msg);
 					String state = UploadUtil.uploadOutParkOrder(msg);
 					System.out.println("点击出场同步:" + state);
-//					lblNewLabel_2.setText(state);
+					// lblNewLabel_2.setText(state);
 
 					if (getState(state) == 1) {
 						SqliteJDBC.Delete(carOut.getOrder_id());
@@ -530,8 +531,7 @@ public class MainSDK {
 					ticket_id.setText(entity.getCouponid());
 					edit_prepay.setText(entity.getPrepay());
 					edit_prepaycash.setText(entity.getPrepay_cash());
-					
-					
+
 					Long timespan = System.currentTimeMillis() / 1000 - entity.getIn_time();
 					double total = FileUtil.calPrice(timespan);// 本地计算的总价格
 					ed_total.setText(new BigDecimal(total).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue() + "");
@@ -556,7 +556,7 @@ public class MainSDK {
 
 					BigDecimal b = new BigDecimal(total).setScale(2, BigDecimal.ROUND_HALF_UP);
 					ed_total_now.setText(b + "");
-					
+
 					boolean isContain = false;
 					int index = 0;
 					if (payStateList != null && payStateList.size() > 0) {
@@ -638,10 +638,63 @@ public class MainSDK {
 		frame.getContentPane().add(ed_scan);
 		ed_scan.setColumns(10);
 
-//		lblNewLabel_2 = new JLabel("");
-//		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2, 38, SpringLayout.EAST, ed_scan);
-//		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, 0, SpringLayout.SOUTH, ed_scan);
-//		frame.getContentPane().add(lblNewLabel_2);
+		ed_scan.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				// 删除时监听
+				System.out.println(ed_scan.getText());
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				// 输入时监听
+				scancode = ed_scan.getText();
+				if (scancode != null && scancode.length() > 0) {
+					if (scancode.trim().length() == 18) {
+						System.out.println("  18位了发起支付");
+						carOut.setAuth_code(ed_scan.getText());
+						carOut.setPay_type("sweepcode");
+						carOut.setElectronic_pay(ed_total_now.getText());
+
+						String msg = JSONObject.fromObject(carOut).toString();
+						System.out.println(msg);
+						String state = UploadUtil.uploadOutParkOrder(msg);
+						System.out.println("扫码付结结果：" + state);
+
+						if (getState(state) == 1) {
+							SqliteJDBC.Delete(carOut.getOrder_id());
+							System.out.println("扫码付结果：" + state + "出场成功！");
+							// ShowDialog(ed_carnumber_out.getText() + "出场成功！");
+							// lblNewLabel_2.setText(ed_carnumber_out.getText()
+							// + "出场成功！扫码支付" + ed_total.getText() + "元");
+						} else {
+							System.out.println("扫码付结果：" + state + "出场失败！");
+							// ShowDialog(ed_carnumber_out.getText() + "出场失败！");
+							// lblNewLabel_2.setText(ed_carnumber_out.getText()
+							// + "出场失败！");
+						}
+						clearOrder();
+					}
+				}
+				// System.out.println(" " + System.currentTimeMillis());
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println(ed_scan.getText());
+			}
+		});
+
+		// lblNewLabel_2 = new JLabel("");
+		// springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2, 38,
+		// SpringLayout.EAST, ed_scan);
+		// springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, 0,
+		// SpringLayout.SOUTH, ed_scan);
+		// frame.getContentPane().add(lblNewLabel_2);
 
 		JButton btnNewButton = new JButton("扫码出场");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -660,6 +713,7 @@ public class MainSDK {
 				outentity.setOut_uid(outuid);
 				outentity.setOrder_id(ed_orderid.getText());
 				outentity.setOut_channel_id(ed_outChannelId.getText());
+				outentity.setIn_channel_id(ed_inchannel_out.getText());
 				outentity.setTotal(ed_total_now.getText());
 				outentity.setAuth_code(ed_scan.getText());
 				outentity.setPay_type("kfcpay");
@@ -701,6 +755,7 @@ public class MainSDK {
 				outentity.setOut_uid(outuid);
 				outentity.setOrder_id(ed_orderid.getText());
 				outentity.setOut_channel_id(ed_outChannelId.getText());
+				outentity.setIn_channel_id(ed_inchannel_out.getText());
 				outentity.setTotal(ed_total_now.getText());
 				outentity.setReduce_amount(edit_decrate_money.getText());
 				outentity.setTicket_id(ticket_id.getText());
@@ -736,7 +791,7 @@ public class MainSDK {
 								lblNewLabel.setText(msg);
 								String state = UploadUtil.uploadOutParkOrder(msg);
 								System.out.println("点击出场:" + state);
-//								lblNewLabel_2.setText(state);
+								// lblNewLabel_2.setText(state);
 								if (getState(state) == 1) {
 									SqliteJDBC.Delete(carOut.getOrder_id());
 									// ShowDialog(ed_carnumber_out.getText() +
@@ -858,15 +913,26 @@ public class MainSDK {
 					// String pics =
 					// Base64.getEncoder().encode(data).toString();
 					String pics = Base64.getEncoder().encodeToString(data);
-
 					// 上传订单图片
+					// String dString =
+					// "{\"upload_type\":\"http\",\"service_name\":\"upload_carpic\",\"data_target\":\"cloud\","
+					// + "\"order_id\":\"" + ed_orderid.getText() +
+					// "\",\"create_time\":\""
+					// + System.currentTimeMillis() / 1000 +
+					// "\",\"car_number\":\"" + ed_carnumber_out.getText()
+					// + "\","
+					// +
+					// "\"pic_type\":\"jpg\",\"park_order_type\":\"in\",\"picture_source\":\"order\",\"resume\":\"测试\",\"content\":\""
+					// + pics + "\"}";
+
+					// 上传抬杆图片
 					String dString = "{\"upload_type\":\"http\",\"service_name\":\"upload_carpic\",\"data_target\":\"cloud\","
 							+ "\"order_id\":\"" + ed_orderid.getText() + "\",\"create_time\":\""
 							+ System.currentTimeMillis() / 1000 + "\",\"car_number\":\"" + ed_carnumber_out.getText()
 							+ "\","
-							+ "\"pic_type\":\"jpg\",\"park_order_type\":\"in\",\"picture_source\":\"order\",\"resume\":\"测试\",\"content\":\""
+							+ "\"pic_type\":\"jpg\",\"park_order_type\":\"in\",\"picture_source\":\"liftrod\",\"liftrod_id\":\"qwert\",\"resume\":\"测试\",\"content\":\""
 							+ pics + "\"}";
-					System.out.println(">>>>>>>>>>>>>>上传数据" + dString);
+
 					String result = UploadUtil.uploadData(dString);
 					System.out.println(">>>>>>>>>>>>>>上传结果" + result);
 				}
@@ -920,10 +986,10 @@ public class MainSDK {
 			public void actionPerformed(ActionEvent arg0) {
 
 				String msg = "{\"union_id\":\"" + textField.getText() + "\",\"ukey\":\"" + txtEadfeefefe.getText()
-						+ "\",\"park_id\":\"" + textField_1.getText() + "\",\"bport\":"+PORT+",\"cport\":"+PORT+",\"ckey\":\""
-						+ txteztthbbzhogf.getText() + "\",\"cloud_addr\":\"" + CLOUD_ADDR + "\",\"bolink_addr\":\""
-						+ BOLINK_ADDR + "\",\"local_id\":\"" + txtBengxiakalaka.getText() + "\",\"log_show\":"
-						+ LOG_SHOW + "}";
+						+ "\",\"park_id\":\"" + textField_1.getText() + "\",\"bport\":" + BPORT + ",\"cport\":" + CPORT
+						+ ",\"ckey\":\"" + txteztthbbzhogf.getText() + "\",\"cloud_addr\":\"" + CLOUD_ADDR
+						+ "\",\"bolink_addr\":\"" + BOLINK_ADDR + "\",\"local_id\":\"" + txtBengxiakalaka.getText()
+						+ "\",\"log_show\":" + LOG_SHOW + "}";
 				// 200002 21776 EA2D90FEEF1E9F8E D8G5M0U488B4A7ZD
 				// 200103 21762 10EEF10020BEC31B WERRTTTTYY
 				// 21779，ck: Q0RX0PQOF6ZXD4TO 泊链厂商编号：200002,UK:EA2D90FEEF1E9F8E
@@ -957,6 +1023,7 @@ public class MainSDK {
 				outentity.setOut_uid(outuid);
 				outentity.setOrder_id(ed_orderid.getText());
 				outentity.setOut_channel_id(ed_outChannelId.getText());
+				outentity.setIn_channel_id(ed_inchannel_out.getText());
 				outentity.setTotal("0");
 				outentity.setReduce_amount(edit_decrate_money.getText());
 				outentity.setTicket_id(ticket_id.getText());
@@ -980,7 +1047,7 @@ public class MainSDK {
 					lblNewLabel.setText(msg);
 					String state = UploadUtil.uploadOutParkOrder(msg);
 					System.out.println("点击出场:" + state);
-//					lblNewLabel_2.setText(state);
+					// lblNewLabel_2.setText(state);
 
 					if (getState(state) == 1) {
 						SqliteJDBC.Delete(carOut.getOrder_id());
@@ -1017,6 +1084,7 @@ public class MainSDK {
 				outentity.setOut_uid(outuid);
 				outentity.setOrder_id(ed_orderid.getText());
 				outentity.setOut_channel_id(ed_outChannelId.getText());
+				outentity.setIn_channel_id(ed_inchannel_out.getText());
 				outentity.setTotal("0");
 				outentity.setReduce_amount(edit_decrate_money.getText());
 				outentity.setTicket_id(ticket_id.getText());
@@ -1040,7 +1108,7 @@ public class MainSDK {
 					lblNewLabel.setText(msg);
 					String state = UploadUtil.uploadOutParkOrder(msg);
 					System.out.println("点击出场:" + state);
-//					lblNewLabel_2.setText(state);
+					// lblNewLabel_2.setText(state);
 
 					if (getState(state) == 1) {
 						SqliteJDBC.Delete(carOut.getOrder_id());
@@ -1182,54 +1250,7 @@ public class MainSDK {
 		springLayout.putConstraint(SpringLayout.WEST, ed_total_now, 38, SpringLayout.EAST, edit_prepay);
 		frame.getContentPane().add(ed_total_now);
 		ed_total_now.setColumns(10);
-		ed_scan.getDocument().addDocumentListener(new DocumentListener() {
 
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
-				// 删除时监听
-				System.out.println(ed_scan.getText());
-			}
-
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
-				// 输入时监听
-				scancode = ed_scan.getText();
-				if (scancode != null && scancode.length() > 0) {
-					if (scancode.trim().length() == 18) {
-						System.out.println("  18位了发起支付");
-						carOut.setAuth_code(ed_scan.getText());
-						carOut.setPay_type("sweepcode");
-						carOut.setElectronic_pay(ed_total_now.getText());
-
-						String msg = JSONObject.fromObject(carOut).toString();
-						System.out.println(msg);
-						String state = UploadUtil.uploadOutParkOrder(msg);
-						System.out.println("扫码付结结果：" + state);
-
-						if (getState(state) == 1) {
-							SqliteJDBC.Delete(carOut.getOrder_id());
-							System.out.println("扫码付结果：" + state + "出场成功！");
-							// ShowDialog(ed_carnumber_out.getText() + "出场成功！");
-//							lblNewLabel_2.setText(ed_carnumber_out.getText() + "出场成功！扫码支付" + ed_total.getText() + "元");
-						} else {
-							System.out.println("扫码付结果：" + state + "出场失败！");
-							// ShowDialog(ed_carnumber_out.getText() + "出场失败！");
-//							lblNewLabel_2.setText(ed_carnumber_out.getText() + "出场失败！");
-						}
-						clearOrder();
-					}
-				}
-				// System.out.println(" " + System.currentTimeMillis());
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println(ed_scan.getText());
-			}
-		});
 		carInList.addAll(SqliteJDBC.Select());
 		if (carInList != null && carInList.size() > 0) {
 			String[] arr = new String[carInList.size()];
@@ -1313,7 +1334,7 @@ public class MainSDK {
 		springLayout.putConstraint(SpringLayout.WEST, textField_4, 6, SpringLayout.EAST, textField_3);
 		frame.getContentPane().add(textField_4);
 		textField_4.setColumns(10);
-		
+
 		JButton button_4 = new JButton("进场");
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -1326,7 +1347,7 @@ public class MainSDK {
 		springLayout.putConstraint(SpringLayout.NORTH, button_4, 31, SpringLayout.SOUTH, btnNewButton_8);
 		springLayout.putConstraint(SpringLayout.WEST, button_4, 0, SpringLayout.WEST, btnNewButton);
 		frame.getContentPane().add(button_4);
-		
+
 		JButton button_5 = new JButton("出场");
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

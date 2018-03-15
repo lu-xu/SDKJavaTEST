@@ -454,7 +454,7 @@ public class InterFaceParking extends InterfacePark {
 			// 3.8查询月卡价格
 			trade_no = object.getString("trade_no");
 			back = "{\"service_name\":\"query_prodprice\",\"data_target\":\"cloud\",\"state\":1,\"trade_no\":\""
-					+ trade_no + "\",\"errmsg\":\"查询月卡价格成功\",\"price\":\"39.9\"}";
+					+ trade_no + "\",\"errmsg\":\"查询月卡价格成功\",\"price\":\"0.01\"}";
 			UploadData(back);
 			break;
 		case "gate_sync":
